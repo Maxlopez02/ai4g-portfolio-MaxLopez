@@ -23,37 +23,37 @@ _List the files, or link to them. Notebook exports, screenshots, scripts._
 > Your tool and your SDG for this hackathon are announced at the **start of Friday's class**.
 > Write them down here once you know them.
 
-**Project title:** Prompt Coach
+**Project title:**
 
-**My pair partner:** Newly assigned - add their name and GitHub username before submission.
+**My pair partner:**
 
-**Tool we had to use:** Lovable
+**Tool we had to use:**
 
-**SDG we had to address:** UN Sustainable Development Goal 4 - Quality Education
+**SDG we had to address:**
 
 **What problem does it solve, and for whom?**
-Beginner college and university students often ask AI broad questions and receive generic help, but do not yet know how to improve their request. Prompt Coach gives these learners guided practice in making a study prompt clearer.
+_Name a real, specific user. "Everyone" is not a user._
 
 **What did you build?**
-The learner writes a goal and first prompt, receives AI feedback on Goal, Context, Constraints and Output, revises the prompt in their own words, and compares both drafts. The coach explains the prompt instead of completing the student's assignment.
+_Two or three sentences. What can a user actually do with it?_
 
 **Link to the live thing (if any):**
-[Public Prompt Coach source repository](https://github.com/Maxlopez02/prompt-coach-ai4g). The app is connected to the original Lovable project; its embedded preview was tested end to end with the real AI service. A public Lovable demo URL will be added if the project is published.
+_Deployed URL, workflow export, video demo - whatever proves it works._
 
 **How do I run it?**
-Open `hackathon/prompt-coach`, run `npm install`, then `npm run dev`. The runtime AI call needs the `LOVABLE_API_KEY` provided inside the connected Lovable environment; never commit this key.
+_Short instructions so someone else can start it._
 
 **Who did what?**
-Max built the first working Lovable prototype before a teammate was assigned, then used Codex to refine the source-code design, responsive behavior, motion, validation and accessibility. The new teammate's contribution has not happened yet and must be added here honestly once work is divided.
+_Be honest about the split of work between you and your partner._
 
 **Ethical reflection - what are the risks of your tool? Who could it harm?**
-The feedback can be wrong, inconsistent or biased, so the interface labels it as guidance rather than a grade and asks learners to use their own judgment. Prompts are sent to an AI service, which could expose private information if a student enters names, student numbers or confidential coursework; the app warns against this. It currently requires internet access, a connected device, English and some familiarity with AI chat tools, so it can exclude learners with limited connectivity, lower digital confidence, accessibility incompatibilities or other language needs. A learner could also reuse the advice to request prohibited work from another tool. The coach reduces that risk by modelling explanations, hints and practice rather than finished answers, but course rules and disclosure are still necessary.
+_Every hackathon requires this. One honest paragraph beats three vague ones._
 
 ### Checklist
-- [x] Prototype code (or export / workflow file) is in `hackathon/`
+- [ ] Prototype code (or export / workflow file) is in `hackathon/`
 - [ ] This week's slides are in `hackathon/`
-- [x] The prototype actually runs, and I wrote down how to run it
-- [x] Ethical reflection written above
+- [ ] The prototype actually runs, and I wrote down how to run it
+- [ ] Ethical reflection written above
 
 ---
 
@@ -72,7 +72,6 @@ The feedback can be wrong, inconsistent or biased, so the interface labels it as
 ## 4. Reflection
 
 **What is the most important thing I learned this week?**
-Making an educational AI tool useful is not only about getting an AI response. The interaction needs to make the learner do something with the feedback and notice what changed.
 
 **Where does this connect to "AI for Good"?**
-Prompt Coach supports SDG 4 by giving beginner students structured practice in AI literacy: they draft, revise and reflect instead of outsourcing their work. It does not solve unequal access to education, and its learning effectiveness still needs testing with students.
+_One concrete link to ethics, sustainability or social impact._
