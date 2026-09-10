@@ -25,7 +25,7 @@ _List the files, or link to them. Notebook exports, screenshots, scripts._
 
 **Project title:** Prompt Coach
 
-**My pair partner:** Newly assigned - add their name and GitHub username before submission.
+**My pair partner:** Benjamin van Teeseling (GitHub: [`benjamintees`](https://github.com/benjamintees))
 
 **Tool we had to use:** Lovable
 
@@ -44,7 +44,7 @@ The learner writes a goal and first prompt, receives AI feedback on Goal, Contex
 From the repository root, run `cd "Term 1/Week 1/hackathon/prompt-coach"`, `npm install`, then `npm run dev`. The runtime AI call needs the `LOVABLE_API_KEY` provided inside the connected Lovable environment; never commit this key.
 
 **Who did what?**
-Max built the first working Lovable prototype before a teammate was assigned, then used Codex to refine the source-code design, responsive behavior, motion, validation and accessibility. The new teammate's contribution has not happened yet and must be added here honestly once work is divided.
+Benjamin van Teeseling contributed to the idea and concept. Max built the working Lovable prototype and used Codex to refine the source-code design, responsive behavior, motion, validation and accessibility.
 
 **Ethical reflection - what are the risks of your tool? Who could it harm?**
 The feedback can be wrong, inconsistent or biased, so the interface labels it as guidance rather than a grade and asks learners to use their own judgment. Prompts are sent to an AI service, which could expose private information if a student enters names, student numbers or confidential coursework; the app warns against this. It currently requires internet access, a connected device, English and some familiarity with AI chat tools, so it can exclude learners with limited connectivity, lower digital confidence, accessibility incompatibilities or other language needs. A learner could also reuse the advice to request prohibited work from another tool. The coach reduces that risk by modelling explanations, hints and practice rather than finished answers, but course rules and disclosure are still necessary.

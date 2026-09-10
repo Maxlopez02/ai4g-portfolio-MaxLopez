@@ -40,4 +40,4 @@ The AI calls require `LOVABLE_API_KEY` in the connected Lovable runtime. Never c
 
 ## Team record
 
-Max built and refined the working prototype before a teammate was assigned. Add the teammate’s name, GitHub username and actual contribution here before the final deadline.
+Benjamin van Teeseling ([`benjamintees`](https://github.com/benjamintees)) contributed to the idea and concept. Max Lopez built and refined the working prototype.
