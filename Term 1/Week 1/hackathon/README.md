@@ -23,7 +23,7 @@ Prompt Coach addresses [UN Sustainable Development Goal 4: Quality Education](ht
 
 - [`prompt-coach/`](prompt-coach/) contains the working product and technical documentation.
 - [`Prompt-Coach-Hackathon-Deck.pptx`](Prompt-Coach-Hackathon-Deck.pptx) contains the presentation slides.
-- [`demo/prompt-coach-screen-demo.webm`](demo/prompt-coach-screen-demo.webm) is a 41-second real browser recording of the complete tested flow. The folder also includes an animated GIF and three source screenshots.
+- [`demo/prompt-coach-screen-demo.webm`](demo/prompt-coach-screen-demo.webm) is a 57-second real browser recording with explanatory labels. It shows the coach’s feedback and example revision, the learner’s own revision, and the final AI comparison. The folder also includes an animated GIF and three source screenshots.
 - [`ETHICAL_REFLECTION.md`](ETHICAL_REFLECTION.md) explains risks, consequences, safeguards and next steps.
 
 ## How to run it
