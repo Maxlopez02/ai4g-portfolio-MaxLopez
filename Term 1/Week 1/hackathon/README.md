@@ -31,7 +31,7 @@ Prompt Coach addresses [UN Sustainable Development Goal 4: Quality Education](ht
 From the portfolio repository root:
 
 ```bash
-cd "Term 1/Week 2/hackathon/prompt-coach"
+cd "Term 1/Week 1/hackathon/prompt-coach"
 npm install
 npm run dev
 ```

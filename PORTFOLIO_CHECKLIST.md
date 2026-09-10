@@ -29,8 +29,8 @@ Tick every box before you submit. Edit this file and put an `x` between the brac
 For each week: the **code** of the prototype **and** the **slides** made that week.
 Also write down, in that week's `README.md`, which tool and which SDG you were given.
 
-- [ ] Week 1 - code + slides + tool/SDG noted
-- [x] Week 2 - code + slides + tool/SDG noted
+- [x] Week 1 - code + slides + tool/SDG noted
+- [ ] Week 2 - code + slides + tool/SDG noted
 - [ ] Week 3 - code + slides + tool/SDG noted
 - [ ] Week 4 - code + slides + tool/SDG noted
 - [ ] Week 5 - code + slides + tool/SDG noted
