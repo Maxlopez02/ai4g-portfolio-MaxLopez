@@ -3,9 +3,9 @@
 Tick every box before you submit. Edit this file and put an `x` between the brackets, like `[x]`.
 
 ## 0. Repository basics
-- [ ] My name and student number are filled in at the top of `README.md`
-- [ ] My repository is accessible to my instructor (public, or private with the instructor invited)
-- [ ] There are **no API keys, tokens or passwords** anywhere in this repository
+- [x] My name and student number are filled in at the top of `README.md`
+- [x] My repository is accessible to my instructor (public, or private with the instructor invited)
+- [x] There are **no API keys, tokens or passwords** anywhere in this repository
 - [ ] My commit history shows work spread across the semester, not one commit at the end
 
 ## 1. Proof of mandatory homework and assignments
