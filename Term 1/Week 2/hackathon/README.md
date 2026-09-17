@@ -12,6 +12,11 @@ AI Study Stress Coach is an automated n8n workflow that helps students pause, as
 
 The repository contains no API keys, OAuth tokens, or live student data. Credential references, deployment identifiers, and the private Google Sheet URL were removed from the public workflow export.
 
+## Team contributions
+
+- **Maximilian Lopez:** n8n workflow, scoring logic, AI safety instructions, formatted email, Google Sheets logging, testing, and demo.
+- **Lili Tarnok:** PowerPoint presentation.
+
 ## What it does
 
 1. A student submits a short n8n form with their stress level, sleep, workload, deadlines, and a brief description of how they feel.
@@ -91,4 +96,3 @@ I would not trust this automation to make health decisions for me. Its score is 
 ## Demo
 
 The [demo video](demo/ai-study-stress-coach-demo.mp4) shows the real form and automated support flow. The [presentation deck](presentation/ai-study-stress-coach-deck.pdf) explains the problem, workflow, scoring rule, SDG 3 connection, and ethical safeguards. All demonstration inputs are fictional.
-

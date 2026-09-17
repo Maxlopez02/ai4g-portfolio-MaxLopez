@@ -22,7 +22,7 @@ _List the files, or link to them. Notebook exports, screenshots, scripts._
 
 **Project title:** AI Study Stress Coach
 
-**My pair partner:** Individual submission
+**My pair partner:** Lili Tarnok
 
 **Tool we had to use:** n8n
 
@@ -44,7 +44,7 @@ I built a seven-node n8n workflow. A student submits a short form; the workflow 
 Import the workflow JSON into n8n, connect OpenAI, Gmail, and Google Sheets credentials, select a restricted Sheet and confirm the column mapping, test with fictional data, then publish the form and activate the workflow. Each form submission triggers the flow automatically. Detailed instructions are in the [project README](hackathon/README.md#how-to-run-it).
 
 **Who did what?**
-This was an individual submission. I designed and built the n8n flow, scoring rule, AI safety instructions, formatted email, Google Sheets logging, testing, demo, and presentation. AI tools supported the personalised response inside the product and helped polish presentation and repository materials.
+I designed and built the n8n flow, scoring rule, AI safety instructions, formatted email, Google Sheets logging, testing, and demo. Lili Tarnok created the PowerPoint presentation. AI tools supported the personalised response inside the product and helped polish supporting materials.
 
 **Ethical reflection - what are the risks of your tool? Who could it harm?**
 I would not trust this automation to make health decisions for me. Its score is a simple project rule, and the AI can misunderstand context or give advice that is generic, unsuitable, late, or unavailable. A student might mistake a High label for a diagnosis, while a failed email could create false reassurance because the form confirms submission before delivery finishes. Automation should stop at low-risk check-in, general study and self-care suggestions, and signposting. A trusted person, study counsellor, or healthcare professional should take over whenever someone feels unable to cope, may be at risk, needs a diagnosis or treatment, or asks for human help. Real use would also require execution monitoring, visible support options, restricted data access, and a deletion period.
