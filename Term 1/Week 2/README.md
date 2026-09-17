@@ -1,4 +1,4 @@
-# Term 1 - Week 2: Loops & Functions
+# Term 1 - Week 2: Flow State & n8n Automation
 
 ---
 
@@ -20,40 +20,40 @@ _List the files, or link to them. Notebook exports, screenshots, scripts._
 
 ## 2. Hackathon prototype -> [`hackathon/`](hackathon/)
 
-> Your tool and your SDG for this hackathon are announced at the **start of Friday's class**.
-> Write them down here once you know them.
+**Project title:** AI Study Stress Coach
 
-**Project title:**
+**My pair partner:** Individual submission
 
-**My pair partner:**
+**Tool we had to use:** n8n
 
-**Tool we had to use:**
-
-**SDG we had to address:**
+**SDG we had to address:** SDG 3 - Good Health and Well-being, including mental health
 
 **What problem does it solve, and for whom?**
-_Name a real, specific user. "Everyone" is not a user._
+University and applied-science students can feel overwhelmed by stress, poor sleep, workload, and approaching deadlines but may not know which manageable step to take first. The project provides a low-pressure check-in and immediate general guidance while keeping diagnosis and serious concerns with people.
 
 **What did you build?**
-_Two or three sentences. What can a user actually do with it?_
+I built a seven-node n8n workflow. A student submits a short form; the workflow cleans the input, calculates a transparent project stress score, classifies it as Low, Moderate, or High, asks an OpenAI node for short personalised guidance, emails a visual stress snapshot, and logs the result in Google Sheets.
 
 **Link to the live thing (if any):**
-_Deployed URL, workflow export, video demo - whatever proves it works._
+- [Importable n8n workflow](hackathon/workflow/ai-study-stress-coach.json)
+- [Corrected demo video](hackathon/demo/ai-study-stress-coach-demo.mp4)
+- [Presentation deck](hackathon/presentation/ai-study-stress-coach-deck.pdf)
+- [Full project documentation](hackathon/README.md)
 
 **How do I run it?**
-_Short instructions so someone else can start it._
+Import the workflow JSON into n8n, connect OpenAI, Gmail, and Google Sheets credentials, select a restricted Sheet and confirm the column mapping, test with fictional data, then publish the form and activate the workflow. Each form submission triggers the flow automatically. Detailed instructions are in the [project README](hackathon/README.md#how-to-run-it).
 
 **Who did what?**
-_Be honest about the split of work between you and your partner._
+This was an individual submission. I designed and built the n8n flow, scoring rule, AI safety instructions, formatted email, Google Sheets logging, testing, demo, and presentation. AI tools supported the personalised response inside the product and helped polish presentation and repository materials.
 
 **Ethical reflection - what are the risks of your tool? Who could it harm?**
-_Every hackathon requires this. One honest paragraph beats three vague ones._
+I would not trust this automation to make health decisions for me. Its score is a simple project rule, and the AI can misunderstand context or give advice that is generic, unsuitable, late, or unavailable. A student might mistake a High label for a diagnosis, while a failed email could create false reassurance because the form confirms submission before delivery finishes. Automation should stop at low-risk check-in, general study and self-care suggestions, and signposting. A trusted person, study counsellor, or healthcare professional should take over whenever someone feels unable to cope, may be at risk, needs a diagnosis or treatment, or asks for human help. Real use would also require execution monitoring, visible support options, restricted data access, and a deletion period.
 
 ### Checklist
-- [ ] Prototype code (or export / workflow file) is in `hackathon/`
-- [ ] This week's slides are in `hackathon/`
-- [ ] The prototype actually runs, and I wrote down how to run it
-- [ ] Ethical reflection written above
+- [x] Prototype code (or export / workflow file) is in `hackathon/`
+- [x] This week's slides are in `hackathon/`
+- [x] The prototype actually runs, and I wrote down how to run it
+- [x] Ethical reflection written above
 
 ---
 
@@ -72,6 +72,7 @@ _Every hackathon requires this. One honest paragraph beats three vague ones._
 ## 4. Reflection
 
 **What is the most important thing I learned this week?**
+I learned how to combine deterministic rules with generative AI in one automation. The rules keep the category and escalation logic visible, while AI is used only where adaptable wording adds value.
 
 **Where does this connect to "AI for Good"?**
-_One concrete link to ethics, sustainability or social impact._
+The project connects to SDG 3 by reducing friction around student well-being support, but it also shows why a beneficial AI system needs limits. The workflow gives general, low-risk guidance and directs higher-concern situations toward people instead of pretending that automation can replace professional care.

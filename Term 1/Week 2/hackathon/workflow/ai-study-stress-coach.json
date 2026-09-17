@@ -1,0 +1,494 @@
+{
+  "name": "AI Study Stress Coach",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "AI Study Stress Coach",
+        "formDescription": "A well-being support tool for students. Share how you are doing and get short, supportive study tips. This is not a replacement for professional help.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Stress Level (1-10)",
+              "fieldType": "number",
+              "placeholder": "1 = very calm, 10 = extremely stressed",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Hours of Sleep Last Night",
+              "fieldType": "number",
+              "placeholder": "e.g. 7",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Workload (1-10)",
+              "fieldType": "number",
+              "placeholder": "1 = very light, 10 = overwhelming",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Number of Upcoming Deadlines",
+              "fieldType": "number",
+              "placeholder": "e.g. 3",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "How are you feeling today?",
+              "fieldType": "textarea",
+              "placeholder": "Write a sentence or two about how you feel.",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "buttonLabel": "Send check-in",
+          "respondWithOptions": {
+            "values": {
+              "formSubmittedText": "Thanks for checking in! Your personalized advice is on its way to your email."
+            }
+          }
+        }
+      },
+      "id": "4eb9b689-3419-47dd-bf19-c05fe9e584ea",
+      "name": "Student Check-In Form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "name",
+              "name": "name",
+              "type": "string",
+              "value": "={{ ($json['Name'] || '').toString().trim() }}"
+            },
+            {
+              "id": "email",
+              "name": "email",
+              "type": "string",
+              "value": "={{ ($json['Email'] || '').toString().trim() }}"
+            },
+            {
+              "id": "stressLevel",
+              "name": "stressLevel",
+              "type": "string",
+              "value": "={{ $json['Stress Level (1-10)'] }}"
+            },
+            {
+              "id": "sleepHours",
+              "name": "sleepHours",
+              "type": "string",
+              "value": "={{ $json['Hours of Sleep Last Night'] }}"
+            },
+            {
+              "id": "workload",
+              "name": "workload",
+              "type": "string",
+              "value": "={{ $json['Workload (1-10)'] }}"
+            },
+            {
+              "id": "deadlines",
+              "name": "deadlines",
+              "type": "string",
+              "value": "={{ $json['Number of Upcoming Deadlines'] }}"
+            },
+            {
+              "id": "feeling",
+              "name": "feeling",
+              "type": "string",
+              "value": "={{ ($json['How are you feeling today?'] || '').toString().trim() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "50e99886-171c-4ec5-b9ca-ff1fd934bffd",
+      "name": "Clean Form Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const num = (v, d = 0) => {\n  const n = parseFloat(String(v == null ? '' : v).replace(/[^0-9.\\-]/g, ''));\n  return isNaN(n) ? d : n;\n};\n\nconst stress = Math.max(0, Math.min(10, num($json.stressLevel)));\nconst sleep = num($json.sleepHours);\nconst workload = Math.max(0, Math.min(10, num($json.workload)));\nconst deadlines = num($json.deadlines);\nconst feeling = String($json.feeling || '').toLowerCase();\n\n// Weighted stress score\nlet score = stress;                       // 0-10\nscore += workload * 0.6;                  // 0-6\nscore += Math.min(deadlines, 10) * 0.5;   // 0-5\nif (sleep < 4) score += 3;\nelse if (sleep < 6) score += 1.5;\n\nlet stressCategory = 'Low';\nif (score >= 14) stressCategory = 'High';\nelse if (score >= 8) stressCategory = 'Moderate';\n\n// Scan the free-text response for signs of being seriously overwhelmed\nconst distressWords = [\n  'overwhelmed', \"can't cope\", 'cant cope', 'hopeless', 'give up', 'giving up',\n  'burnt out', 'burned out', 'burnout', 'panic', 'panicking', 'anxious', 'anxiety',\n  'depressed', 'breaking down', 'break down', 'too much', 'exhausted', 'no point',\n  'worthless', 'suicidal', 'end it all', \"can't go on\", 'cant go on'\n];\nconst distressHit = distressWords.some((w) => feeling.includes(w));\n\nconst escalate = stressCategory === 'High' || stress >= 9 || distressHit;\n\nreturn {\n  json: {\n    ...$json,\n    stressLevelNum: stress,\n    sleepHoursNum: sleep,\n    workloadNum: workload,\n    deadlinesNum: deadlines,\n    stressScore: Math.round(score * 10) / 10,\n    stressCategory,\n    distressHit,\n    escalate,\n  },\n};"
+      },
+      "id": "3cef46cf-b4c0-48ca-a2a9-ebae0e50dc9e",
+      "name": "Assess Stress",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=Student check-in:\n- Name: {{ $json.name }}\n- Stress level (1-10): {{ $json.stressLevelNum }}\n- Hours of sleep last night: {{ $json.sleepHoursNum }}\n- Workload (1-10): {{ $json.workloadNum }}\n- Upcoming deadlines: {{ $json.deadlinesNum }}\n- Calculated stress category: {{ $json.stressCategory }}\n- How they feel: \"{{ $json.feeling }}\"\n- Escalation flag (very high stress or signs of being seriously overwhelmed): {{ $json.escalate }}\n\nWrite short, warm, practical advice for this student."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "instructions": "You are a supportive study well-being coach for university students. Give SHORT (under ~150 words), warm, practical and encouraging advice about managing study stress, sleep, workload, taking breaks and planning. Use a friendly tone and 3-5 concrete, doable tips.\n\nSTRICT RULES:\n- Do NOT diagnose mental-health conditions and do NOT give medical diagnoses or medical treatment advice.\n- If the escalation flag is true, gently and non-alarmingly encourage the student to speak with a trusted person, their study counsellor, or a healthcare professional, and remind them they do not have to handle it alone.\n- Make clear you are an automated well-being support tool, not a replacement for professional help.\n- Do not include a subject line or email headers; write only the advice body.",
+          "maxTokens": 450,
+          "temperature": 0.7
+        }
+      },
+      "id": "630a796f-ff88-4138-a7b9-876c0ef46d9a",
+      "name": "AI Well-Being Coach",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        672,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "checkInTime",
+              "name": "checkInTime",
+              "type": "string",
+              "value": "={{ $now.toISO() }}"
+            },
+            {
+              "id": "name",
+              "name": "name",
+              "type": "string",
+              "value": "={{ $('Assess Stress').item.json.name }}"
+            },
+            {
+              "id": "email",
+              "name": "email",
+              "type": "string",
+              "value": "={{ $('Assess Stress').item.json.email }}"
+            },
+            {
+              "id": "stressLevel",
+              "name": "stressLevel",
+              "type": "string",
+              "value": "={{ $('Assess Stress').item.json.stressLevelNum }}"
+            },
+            {
+              "id": "sleepHours",
+              "name": "sleepHours",
+              "type": "string",
+              "value": "={{ $('Assess Stress').item.json.sleepHoursNum }}"
+            },
+            {
+              "id": "workload",
+              "name": "workload",
+              "type": "string",
+              "value": "={{ $('Assess Stress').item.json.workloadNum }}"
+            },
+            {
+              "id": "deadlines",
+              "name": "deadlines",
+              "type": "string",
+              "value": "={{ $('Assess Stress').item.json.deadlinesNum }}"
+            },
+            {
+              "id": "feeling",
+              "name": "feeling",
+              "type": "string",
+              "value": "={{ $('Assess Stress').item.json.feeling }}"
+            },
+            {
+              "id": "stressCategory",
+              "name": "stressCategory",
+              "type": "string",
+              "value": "={{ $('Assess Stress').item.json.stressCategory }}"
+            },
+            {
+              "id": "stressScore",
+              "name": "stressScore",
+              "type": "string",
+              "value": "={{ $('Assess Stress').item.json.stressScore }}"
+            },
+            {
+              "id": "escalate",
+              "name": "escalate",
+              "type": "string",
+              "value": "={{ $('Assess Stress').item.json.escalate }}"
+            },
+            {
+              "id": "aiResponse",
+              "name": "aiResponse",
+              "type": "string",
+              "value": "={{ $json.output[0].content[0].text }}"
+            },
+            {
+              "id": "finalMessage",
+              "name": "finalMessage",
+              "type": "string",
+              "value": "={{ (() => {\n  const s = $('Assess Stress').item.json;\n  const fullName = String(s.name || 'Student').trim();\n  const firstName = fullName.split(/\\s+/)[0] || 'there';\n  const category = String(s.stressCategory || 'Moderate');\n  const escalate = s.escalate === true || String(s.escalate).toLowerCase() === 'true';\n  const score = Number(s.stressScore ?? 0);\n  const maxScore = 24;\n  const pct = Math.max(0, Math.min(100, Math.round((score / maxScore) * 100)));\n  const stressLevel = Number(s.stressLevelNum ?? s.stressLevel ?? 0);\n  const sleep = Number(s.sleepHoursNum ?? s.sleepHours ?? 0);\n  const workload = Number(s.workloadNum ?? s.workload ?? 0);\n  const deadlines = Number(s.deadlinesNum ?? s.deadlines ?? 0);\n  const feeling = String(s.feeling || '').trim();\n\n  const palette = category === 'High'\n    ? { color: '#B42318', bg: '#FFF1F3', soft: '#FEE4E2', border: '#FDA29B', glow: 'rgba(217,45,32,0.18)' }\n    : category === 'Low'\n      ? { color: '#027A48', bg: '#ECFDF3', soft: '#D1FADF', border: '#A6F4C5', glow: 'rgba(18,183,106,0.16)' }\n      : { color: '#B54708', bg: '#FFFAEB', soft: '#FEF0C7', border: '#FEDF89', glow: 'rgba(247,144,9,0.16)' };\n\n  const esc = (v) => String(v ?? '')\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;');\n\n  const titleCase = (str) => esc(String(str || '').replace(/\\b\\w/g, c => c.toUpperCase()));\n\n  let summary = '';\n  const notes = [];\n  if (sleep >= 8) notes.push(`you got a strong <strong>${esc(sleep)} hours</strong> of sleep`);\n  else if (sleep >= 6) notes.push(`you got <strong>${esc(sleep)} hours</strong> of sleep`);\n  else notes.push(`sleep looks a bit low at <strong>${esc(sleep)} hours</strong>`);\n\n  if (workload >= 8) notes.push(`your workload feels <strong>very high</strong>`);\n  else if (workload >= 5) notes.push(`your workload is <strong>moderate to high</strong>`);\n  else notes.push(`your workload looks <strong>fairly manageable</strong>`);\n\n  if (deadlines >= 5) notes.push(`you have <strong>${esc(deadlines)} deadlines</strong> stacking up`);\n  else if (deadlines > 0) notes.push(`you have <strong>${esc(deadlines)} upcoming deadline${deadlines === 1 ? '' : 's'}</strong>`);\n  else notes.push(`you don’t have any urgent deadlines listed`);\n\n  const opening = category === 'High'\n    ? 'Today looks intense, so the goal is to reduce pressure and make your next steps feel clearer.'\n    : category === 'Moderate'\n      ? 'You seem to be carrying a decent amount of pressure, but with a few adjustments you can make today feel more manageable.'\n      : 'Things look relatively steady today, so the focus is on keeping your momentum without burning out.';\n\n  summary = `${opening} From your check-in, ${notes.join(', ')}.`;\n  if (feeling) summary += ` You also said you feel <strong>“${esc(feeling)}”</strong>.`;\n\n  let advice = String($json.output?.[0]?.content?.[0]?.text || '').trim();\n  advice = advice.replace(/^(Hi|Hey|Hello)\\s+[^!\\n.]+[!.]\\s*/i, '');\n\n  const lines = advice.split(/\\r?\\n/).map(line => line.trim()).filter(Boolean);\n  let adviceHtml = '';\n  let inList = false;\n\n  for (const rawLine of lines) {\n    const numbered = rawLine.match(/^\\d+\\.\\s*(.*)$/);\n    const bullet = rawLine.match(/^[-•]\\s*(.*)$/);\n\n    if (numbered || bullet) {\n      if (!inList) {\n        adviceHtml += '<ul style=\"margin:0;padding:0;list-style:none;\">';\n        inList = true;\n      }\n      const content = esc((numbered || bullet)[1]).replace(/\\*\\*(.+?)\\*\\*/g, '<strong>$1</strong>');\n      adviceHtml += '<li style=\"margin:0 0 12px 0;padding:14px 14px 14px 16px;background:#FFFFFF;border:1px solid #EAECF0;border-left:4px solid ' + palette.color + ';border-radius:12px;line-height:1.6;color:#344054;box-shadow:0 1px 2px rgba(16,24,40,0.04);\">'\n        + '<span style=\"display:inline-block;font-weight:700;color:' + palette.color + ';margin-right:8px;\">•</span>' + content + '</li>';\n    } else {\n      if (inList) {\n        adviceHtml += '</ul>';\n        inList = false;\n      }\n      const content = esc(rawLine).replace(/\\*\\*(.+?)\\*\\*/g, '<strong>$1</strong>');\n      adviceHtml += '<p style=\"margin:0 0 12px 0;line-height:1.6;color:#344054;\">' + content + '</p>';\n    }\n  }\n  if (inList) adviceHtml += '</ul>';\n  if (!adviceHtml) {\n    adviceHtml = '<p style=\"margin:0;line-height:1.6;color:#344054;\">Take one manageable step at a time and give yourself space for short breaks.</p>';\n  }\n\n  const supportBox = escalate\n    ? `<div style=\"margin-top:22px;padding:18px;background:linear-gradient(135deg,#FFF7ED 0%,#FFF1F3 100%);border:1px solid #FFD6AE;border-radius:16px;box-shadow:0 6px 18px rgba(249,115,22,0.08);\">\n         <div style=\"font-size:14px;font-weight:800;color:#B93815;margin-bottom:8px;letter-spacing:0.2px;\">Support suggestion</div>\n         <div style=\"font-size:14px;line-height:1.65;color:#7A271A;\">\n           If today feels like too much, reach out to someone you trust, your study counsellor, or a healthcare professional. Asking for support early is a strength.\n         </div>\n       </div>`\n    : '';\n\n  const meterZoneLabel = category === 'High' ? 'High Zone' : category === 'Low' ? 'Low Zone' : 'Moderate Zone';\n\n  return `\n<!doctype html>\n<html>\n  <body style=\"margin:0;padding:0;background:#EEF2FF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#101828;\">\n    <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"background:linear-gradient(180deg,#EEF2FF 0%,#F8FAFC 100%);padding:26px 12px;\">\n      <tr>\n        <td align=\"center\">\n          <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"max-width:680px;background:#FFFFFF;border:1px solid #E4E7EC;border-radius:24px;overflow:hidden;box-shadow:0 20px 45px rgba(16,24,40,0.10);\">\n            <tr>\n              <td style=\"padding:0;background:linear-gradient(135deg,#111827 0%,#4338CA 55%,#7C3AED 100%);\">\n                <div style=\"padding:28px 30px 30px 30px;\">\n                  <div style=\"display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.14);font-size:11px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:#E0EAFF;margin-bottom:14px;\">Student well-being check-in</div>\n                  <div style=\"font-size:28px;font-weight:800;letter-spacing:-0.4px;color:#FFFFFF;\">AI Study Stress Coach</div>\n                  <div style=\"margin-top:8px;font-size:14px;line-height:1.55;color:#D6E4FF;max-width:470px;\">A clearer snapshot of today’s pressure level, plus practical next steps to help you regain focus.</div>\n                </div>\n              </td>\n            </tr>\n\n            <tr>\n              <td style=\"padding:28px 30px 8px 30px;\">\n                <p style=\"margin:0 0 6px 0;font-size:22px;font-weight:800;color:#101828;\">Hi ${esc(firstName)} 👋</p>\n                <p style=\"margin:0 0 22px 0;font-size:14px;line-height:1.7;color:#475467;\">Here’s your polished stress snapshot for today — short, visual, and easy to act on.</p>\n              </td>\n            </tr>\n\n            <tr>\n              <td style=\"padding:0 30px 10px 30px;\">\n                <div style=\"background:linear-gradient(180deg,#FCFCFD 0%,#F8FAFC 100%);border:1px solid #EAECF0;border-radius:20px;padding:22px;box-shadow:0 10px 30px ${palette.glow};\">\n                  <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n                    <tr>\n                      <td style=\"vertical-align:top;padding-right:16px;\">\n                        <div style=\"font-size:12px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;color:#667085;margin-bottom:10px;\">Stress meter</div>\n                        <div style=\"display:inline-block;padding:8px 13px;border-radius:999px;background:${palette.bg};border:1px solid ${palette.border};color:${palette.color};font-size:14px;font-weight:800;\">${esc(category)}</div>\n                        <div style=\"margin-top:14px;font-size:34px;font-weight:800;letter-spacing:-1px;color:#101828;\">${esc(score.toFixed ? score.toFixed(1) : score)}<span style=\"font-size:16px;color:#667085;\"> / ${maxScore}</span></div>\n                        <div style=\"margin-top:6px;font-size:13px;color:#667085;\">Current zone: <strong style=\"color:${palette.color};\">${meterZoneLabel}</strong></div>\n                      </td>\n                    </tr>\n                  </table>\n\n                  <div style=\"margin-top:18px;position:relative;\">\n                    <div style=\"height:14px;border-radius:999px;background:linear-gradient(90deg,#12B76A 0%,#F79009 50%,#F04438 100%);\"></div>\n                    <div style=\"position:relative;height:0;\">\n                      <div style=\"position:relative;left:calc(${pct}% - 12px);top:-19px;width:24px;height:24px;border-radius:999px;background:#FFFFFF;border:4px solid ${palette.color};box-shadow:0 8px 18px ${palette.glow};\"></div>\n                    </div>\n                    <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"margin-top:6px;\">\n                      <tr>\n                        <td align=\"left\" style=\"font-size:11px;color:#667085;\">Low</td>\n                        <td align=\"center\" style=\"font-size:11px;color:#667085;\">Moderate</td>\n                        <td align=\"right\" style=\"font-size:11px;color:#667085;\">High</td>\n                      </tr>\n                    </table>\n                  </div>\n                </div>\n              </td>\n            </tr>\n\n            <tr>\n              <td style=\"padding:10px 30px 10px 30px;\">\n                <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n                  <tr>\n                    <td width=\"33.33%\" style=\"padding:6px 6px 6px 0;\">\n                      <div style=\"background:#F8FAFC;border:1px solid #EAECF0;border-radius:16px;padding:16px;text-align:center;\">\n                        <div style=\"font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:#667085;font-weight:800;\">Sleep</div>\n                        <div style=\"margin-top:8px;font-size:24px;font-weight:800;color:#101828;\">${esc(sleep)}</div>\n                        <div style=\"font-size:12px;color:#667085;\">hours</div>\n                      </div>\n                    </td>\n                    <td width=\"33.33%\" style=\"padding:6px;\">\n                      <div style=\"background:#F8FAFC;border:1px solid #EAECF0;border-radius:16px;padding:16px;text-align:center;\">\n                        <div style=\"font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:#667085;font-weight:800;\">Workload</div>\n                        <div style=\"margin-top:8px;font-size:24px;font-weight:800;color:#101828;\">${esc(workload)}</div>\n                        <div style=\"font-size:12px;color:#667085;\">out of 10</div>\n                      </div>\n                    </td>\n                    <td width=\"33.33%\" style=\"padding:6px 0 6px 6px;\">\n                      <div style=\"background:#F8FAFC;border:1px solid #EAECF0;border-radius:16px;padding:16px;text-align:center;\">\n                        <div style=\"font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:#667085;font-weight:800;\">Deadlines</div>\n                        <div style=\"margin-top:8px;font-size:24px;font-weight:800;color:#101828;\">${esc(deadlines)}</div>\n                        <div style=\"font-size:12px;color:#667085;\">upcoming</div>\n                      </div>\n                    </td>\n                  </tr>\n                </table>\n              </td>\n            </tr>\n\n            <tr>\n              <td style=\"padding:12px 30px 6px 30px;\">\n                <div style=\"background:#FFFFFF;border:1px solid #EAECF0;border-radius:18px;padding:20px;\">\n                  <div style=\"font-size:14px;font-weight:800;color:#101828;margin-bottom:10px;\">Today at a glance</div>\n                  <p style=\"margin:0;font-size:14px;line-height:1.75;color:#475467;\">${summary}</p>\n                </div>\n              </td>\n            </tr>\n\n            <tr>\n              <td style=\"padding:14px 30px 6px 30px;\">\n                <div style=\"font-size:18px;font-weight:800;color:#101828;margin-bottom:12px;\">Your recommendations</div>\n                ${adviceHtml}\n                ${supportBox}\n              </td>\n            </tr>\n\n            <tr>\n              <td style=\"padding:20px 30px 28px 30px;\">\n                <div style=\"padding-top:18px;border-top:1px solid #EAECF0;\">\n                  <p style=\"margin:0 0 4px 0;font-size:14px;font-weight:700;color:#101828;\">You’ve got this.</p>\n                  <p style=\"margin:0;font-size:14px;color:#667085;\">The AI Study Stress Coach</p>\n                </div>\n              </td>\n            </tr>\n\n            <tr>\n              <td style=\"padding:16px 30px 20px 30px;background:#F9FAFB;border-top:1px solid #EAECF0;\">\n                <p style=\"margin:0;font-size:11px;line-height:1.65;color:#98A2B3;\">AI Study Stress Coach is a well-being support tool created for SDG 3: Good Health &amp; Well-being. It provides general support and is not medical advice, a diagnosis, or a replacement for professional help.</p>\n              </td>\n            </tr>\n          </table>\n        </td>\n      </tr>\n    </table>\n  </body>\n</html>`;\n})() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a0cfb742-8d9d-4265-83cd-15a085f184e1",
+      "name": "Compose Message",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        896,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "=Your Stress Snapshot — {{ $json.stressCategory }}",
+        "emailType": "html",
+        "message": "={{ $json.finalMessage }}",
+        "options": {}
+      },
+      "id": "f2f1dac3-2df4-4a10-8889-1773093f6a07",
+      "name": "Email Student",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1120,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp ": "={{ $json.checkInTime }}",
+            "Name": "={{ $json.name }}",
+            "Email": "={{ $json.email }}",
+            "Stress Level ": "={{ $json.stressLevel }}",
+            "Sleep Hours ": "={{ $json.sleepHours }}",
+            "Workload": "={{ $json.workload }}",
+            "Deadlines": "={{ $json.deadlines }}",
+            "Feeling": "={{ $json.feeling }}",
+            "Stress Category ": "={{ $json.stressCategory }}",
+            "Stress Score ": "={{ $json.stressScore }}",
+            "AI Response": "={{ $json.aiResponse }}"
+          },
+          "schema": [
+            {
+              "id": "Timestamp ",
+              "displayName": "Timestamp ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Stress Level ",
+              "displayName": "Stress Level ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Sleep Hours ",
+              "displayName": "Sleep Hours ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Workload",
+              "displayName": "Workload",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Deadlines",
+              "displayName": "Deadlines",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Feeling",
+              "displayName": "Feeling",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Stress Category ",
+              "displayName": "Stress Category ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Stress Score ",
+              "displayName": "Stress Score ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AI Response",
+              "displayName": "AI Response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "92cf9c78-0282-4068-a9aa-58a25034fe6b",
+      "name": "Log Check-In",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1120,
+        192
+      ]
+    }
+  ],
+  "connections": {
+    "Student Check-In Form": {
+      "main": [
+        [
+          {
+            "node": "Clean Form Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clean Form Data": {
+      "main": [
+        [
+          {
+            "node": "Assess Stress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Assess Stress": {
+      "main": [
+        [
+          {
+            "node": "AI Well-Being Coach",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Well-Being Coach": {
+      "main": [
+        [
+          {
+            "node": "Compose Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compose Message": {
+      "main": [
+        [
+          {
+            "node": "Email Student",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Log Check-In",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}
