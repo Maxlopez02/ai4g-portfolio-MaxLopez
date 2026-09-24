@@ -22,6 +22,7 @@ dist/
 build/
 .next/
 .cache/
+.video-build/
 
 # --- OS junk ---
 .DS_Store

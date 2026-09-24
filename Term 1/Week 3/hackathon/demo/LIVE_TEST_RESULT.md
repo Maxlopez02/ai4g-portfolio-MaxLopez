@@ -30,4 +30,4 @@ The first live request exposed two current Gemini API compatibility changes:
 1. Gemini's schema subset rejected `additionalProperties`; the API-facing schema now omits that field while Pydantic still rejects unexpected fields after the response returns.
 2. Google reported that `gemini-2.5-flash-lite` is unavailable to new users and recommended `gemini-3.5-flash-lite`; the application and example configuration now use the supported model.
 
-These results prove the direct API path works. The recorded browser flow is included as [`MigrationHelp-demo.mp4`](MigrationHelp-demo.mp4); it shows a real question, the generated route, the high-risk label and the official source links.
+These results prove the direct API path works. The recorded browser flow is included as [`MigrationHelp-demo.mp4`](MigrationHelp-demo.mp4); it uses narration, burned-in captions and an on-screen Python code card to explain the live Gemini call, response validation, generated route, high-risk label and official source links.

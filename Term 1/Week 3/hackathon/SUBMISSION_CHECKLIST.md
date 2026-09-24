@@ -14,7 +14,7 @@ The technical submission package is complete and aligned to the Hackathon 3 rubr
 - [x] Honest ethical reflection in [`ETHICAL_REFLECTION.md`](ETHICAL_REFLECTION.md)
 - [x] Rubric evidence map in [`RUBRIC_EVIDENCE.md`](RUBRIC_EVIDENCE.md)
 - [x] Nine passing automated tests recorded in [`demo/LIVE_TEST_RESULT.md`](demo/LIVE_TEST_RESULT.md)
-- [x] Live API demo recording in [`demo/MigrationHelp-demo.mp4`](demo/MigrationHelp-demo.mp4)
+- [x] Live API demo recording with narration, burned-in captions and a Python API-call code card in [`demo/MigrationHelp-demo.mp4`](demo/MigrationHelp-demo.mp4)
 - [x] Nine-slide presentation, including the real Python API call, in [`presentation/MigrationHelp-Hackathon-3-final.pptx`](presentation/MigrationHelp-Hackathon-3-final.pptx)
 - [x] `.env` is ignored and the API key is not included in submission files
 

@@ -9,6 +9,7 @@ MigrationHelp is a Python/Streamlit chatbot that helps recently arrived adults i
 - [Working Python application](migrationhelp/)
 - [Simple explanation of the Python and API call](HOW_THE_CODE_WORKS.md)
 - [Demo and recording script](demo/DEMO_SCRIPT.md)
+- [Narration, caption and code-card script](demo/NARRATION_SCRIPT.md)
 - [Recorded working demo (MP4)](demo/MigrationHelp-demo.mp4)
 - [Live Gemini verification record](demo/LIVE_TEST_RESULT.md)
 - [Ethical reflection](ETHICAL_REFLECTION.md)
