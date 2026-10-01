@@ -8,7 +8,7 @@ Through the Glass holds one viewpoint in place while the world outside changes. 
 
 - [Final film on Google Drive](https://drive.google.com/file/d/1OYYY5sTjCbcKAET1KyUjYqCMclCL7Ka3/view?usp=sharing)
 - [Project presentation](https://docs.google.com/presentation/d/1sLXHBpgogrEhtBXTxbMtkuy05tf5DjgafnTE8wunlGU/edit?slide=id.p1#slide=id.p1)
-- YouTube: **add the public or unlisted URL before submission**
+- [Final film on YouTube](https://youtu.be/mVfOAb8VLBE)
 
 Local copy: [`through-the-glass.mp4`](through-the-glass.mp4)
 
@@ -160,7 +160,7 @@ The team reports 42 generations on an RTX 4090 and estimates 1.8 kWh of electric
 - [x] Ethical reflection
 - [x] Captioned workflow demonstration
 - [x] Text-to-image and image-to-video ComfyUI workflow exports
-- [ ] Upload the film to YouTube and add the public or unlisted URL above
+- [x] Film uploaded to YouTube with a public or unlisted URL
 - [ ] Confirm that the final upload visibly discloses that the imagery is AI generated
 
 ## Team

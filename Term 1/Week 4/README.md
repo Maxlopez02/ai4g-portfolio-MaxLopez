@@ -49,6 +49,7 @@ We built a short AI-generated climate film that holds one interior window view s
 _Deployed URL, workflow export, video demo - whatever proves it works._
 
 - [Final film on Google Drive](https://drive.google.com/file/d/1OYYY5sTjCbcKAET1KyUjYqCMclCL7Ka3/view?usp=sharing)
+- [Final film on YouTube](https://youtu.be/mVfOAb8VLBE)
 - [Captioned workflow demo](hackathon/demo/through-the-glass-workflow-demo-captioned-final.mp4)
 - [Corrected presentation](hackathon/Hackathon%204%20Presentation%20-%20corrected.pptx)
 - [Complete project documentation](hackathon/README.md)
