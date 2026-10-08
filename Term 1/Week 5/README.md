@@ -89,8 +89,8 @@ The main risk is that the model can copy patterns and inequalities from historic
 
 ### Checklist
 
-- [ ] Add `Adult_Income_Classification.ipynb` to `hackathon/` before submitting to GitHub.
-- [ ] Add the PowerPoint file to `hackathon/` before submitting to GitHub.
+- [x] Add `Adult_Income_Classification.ipynb` to `hackathon/` before submitting to GitHub.
+- [x] Add the PowerPoint file to `hackathon/` before submitting to GitHub.
 - [x] The prototype runs, and the run instructions are written above.
 - [x] Ethical reflection written above.
 
