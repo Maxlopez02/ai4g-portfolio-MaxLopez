@@ -1,0 +1,39 @@
+{
+  "total_correct": 30,
+  "total_images": 36,
+  "accuracy": 0.8333333333333334,
+  "per_class": {
+    "giant_hogweed": {
+      "correct": 10,
+      "total": 12,
+      "accuracy": 0.8333333333333334
+    },
+    "common_hogweed": {
+      "correct": 8,
+      "total": 12,
+      "accuracy": 0.6666666666666666
+    },
+    "cow_parsley": {
+      "correct": 12,
+      "total": 12,
+      "accuracy": 1.0
+    }
+  },
+  "confusion_matrix": {
+    "giant_hogweed": {
+      "giant_hogweed": 10,
+      "common_hogweed": 1,
+      "cow_parsley": 1
+    },
+    "common_hogweed": {
+      "giant_hogweed": 1,
+      "common_hogweed": 8,
+      "cow_parsley": 3
+    },
+    "cow_parsley": {
+      "giant_hogweed": 0,
+      "common_hogweed": 0,
+      "cow_parsley": 12
+    }
+  }
+}

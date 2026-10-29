@@ -1,77 +1,40 @@
 # Term 1 - Week 7: Computer Vision
 
----
+## Hackathon 7: Hogweed Guard NL
 
-## 1. Homework & workshop assignments -> [`homework/`](homework/)
+**Individual project**  
+**Tool:** Roboflow image classification  
+**SDG:** 15 - Life on Land
 
-**What was the assignment?**
+### The problem
 
-**What did I hand in?**
-_List the files, or link to them. Notebook exports, screenshots, scripts._
+Giant hogweed is invasive in the Netherlands and its sap can cause serious skin reactions. It can also be confused with common hogweed and cow parsley. I made this project for Dutch nature volunteers and local site managers who need a first check before asking an expert. It is not meant for people making removal, medical or legal decisions.
 
-**What did I find difficult, and how did I solve it?**
+### What I built
 
-### Checklist
-- [ ] My workshop / homework files are in `homework/`
-- [ ] Everything runs without errors, or I explained what does not and why
+The user uploads a plant photograph in a small Streamlit app. A Roboflow DINOv3 model compares three classes: giant hogweed, common hogweed and cow parsley. The app shows a cautious result when confidence is at least 65%. Below that threshold it shows **uncertain** and asks for expert review.
 
----
+I collected 360 Dutch observations through GBIF. I used 324 labelled images in Roboflow and kept 36 images separate for a final test. The model correctly classified 30 of those 36 unseen images (83.3%). The full result is in [`hackathon/evidence/held_out_results.csv`](hackathon/evidence/held_out_results.csv).
 
+The working prototype is in [`hackathon/app.py`](hackathon/app.py). Screenshots of a successful result and an uncertain result are in [`hackathon/evidence/`](hackathon/evidence/). The presentation is [`presentation/Hogweed_Guard_NL_Hackathon_7.pptx`](presentation/Hogweed_Guard_NL_Hackathon_7.pptx).
 
-## 2. Hackathon prototype -> [`hackathon/`](hackathon/)
+### How to run it
 
-> Your tool and your SDG for this hackathon are announced at the **start of Friday's class**.
-> Write them down here once you know them.
+1. Open a terminal in `hackathon/` and run `pip install -r requirements.txt`.
+2. Copy `.env.example` to `.env` and add a private Roboflow API key.
+3. Run `streamlit run app.py` and upload a JPG, PNG or WebP image.
 
-**Project title:**
+### Ethical reflection
 
-**My pair partner:**
+A false positive could make someone remove a native plant. A false negative could make someone approach dangerous giant hogweed. The GBIF labels may contain mistakes, and the photos do not represent every season, region or growth stage. I reduced these risks by keeping the scope to three species, testing on images that were not sent to Roboflow, withholding low-confidence answers, and showing a warning never to touch or remove a plant without expert confirmation. A real deployment would need more field data and review by botanists.
 
-**Tool we had to use:**
+### My contribution and reflection
 
-**SDG we had to address:**
+I chose the topic, collected and checked the dataset, trained the Roboflow model, tested it on the held-out set, and decided how the safety threshold and warnings should work. I used AI tools for coding and debugging support, then tested the final flow and checked the results myself.
 
-**What problem does it solve, and for whom?**
-_Name a real, specific user. "Everyone" is not a user._
+The biggest lesson was that a strong result inside a training platform does not automatically make a model safe. The separate test exposed mistakes that mattered for the user. In a next version I would collect more difficult common-hogweed photographs from different seasons and distances.
 
-**What did you build?**
-_Two or three sentences. What can a user actually do with it?_
+### Sources
 
-**Link to the live thing (if any):**
-_Deployed URL, workflow export, video demo - whatever proves it works._
-
-**How do I run it?**
-_Short instructions so someone else can start it._
-
-**Who did what?**
-_Be honest about the split of work between you and your partner._
-
-**Ethical reflection - what are the risks of your tool? Who could it harm?**
-_Every hackathon requires this. One honest paragraph beats three vague ones._
-
-### Checklist
-- [ ] Prototype code (or export / workflow file) is in `hackathon/`
-- [ ] This week's slides are in `hackathon/`
-- [ ] The prototype actually runs, and I wrote down how to run it
-- [ ] Ethical reflection written above
-
----
-
-## 3. Presentation -> [`presentation/`](presentation/)
-
-*Only fill this in for the week your group was selected to present. You need at least **one** of these across the whole term.*
-
-- [ ] My group presented in this week
-- [ ] Slides are in `presentation/`
-- [ ] Proof of the live demo is in `presentation/` (recording, screenshots, or link)
-
-**How did it go? What would I do differently next time?**
-
----
-
-## 4. Reflection
-
-**What is the most important thing I learned this week?**
-
-**Where does this connect to "AI for Good"?**
-_One concrete link to ethics, sustainability or social impact._
+- [NVWA factsheet: reuzenberenklauw](https://www.nvwa.nl/documenten/plant/planten-in-de-natuur/exoten/risicobeoordelingen/factsheet-reuzenberenklauw)
+- [GBIF occurrence API](https://techdocs.gbif.org/en/openapi/v1/occurrence)

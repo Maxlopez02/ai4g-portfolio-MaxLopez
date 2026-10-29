@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+.deck-build/
+.codex-finalizer/
+.playwright-cli/
+output/
+dataset/images/
+dataset/roboflow_upload/
+dataset/held_out_test/
+dataset/download_report.json
+dataset/*.zip
