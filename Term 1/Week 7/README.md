@@ -14,9 +14,9 @@ Giant hogweed is invasive in the Netherlands and its sap can cause serious skin 
 
 The user uploads a plant photograph in a small Streamlit app. A Roboflow DINOv3 model compares three classes: giant hogweed, common hogweed and cow parsley. The app shows a cautious result when confidence is at least 65%. Below that threshold it shows **uncertain** and asks for expert review.
 
-I collected 360 Dutch observations through GBIF. I used 324 labelled images in Roboflow and kept 36 images separate for a final test. The model correctly classified 30 of those 36 unseen images (83.3%). The full result is in [`hackathon/evidence/held_out_results.csv`](hackathon/evidence/held_out_results.csv).
+I collected 360 Dutch observations through GBIF. I used 324 labelled images in Roboflow and kept 36 images separate for a final test. The model correctly classified 30 of those 36 unseen images (83.3%).
 
-The working prototype is in [`hackathon/app.py`](hackathon/app.py). Screenshots of a successful result and an uncertain result are in [`hackathon/evidence/`](hackathon/evidence/). The presentation is [`presentation/Hogweed_Guard_NL_Hackathon_7.pptx`](presentation/Hogweed_Guard_NL_Hackathon_7.pptx).
+The working prototype is in [`hackathon/app.py`](hackathon/app.py). A successful app result and the Roboflow model metrics are in [`hackathon/evidence/`](hackathon/evidence/). The presentation is [`presentation/Hogweed_Guard_NL_Hackathon_7.pptx`](presentation/Hogweed_Guard_NL_Hackathon_7.pptx).
 
 ### How to run it
 
