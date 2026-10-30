@@ -16,17 +16,18 @@ Prepare and record a 5–10 minute face-to-camera presentation covering:
 
 Complete `technical/Week5_Workshop_Resit.ipynb`, including:
 
-- [ ] All three learning-wave exercises.
-- [ ] At least two models or one model tuned across several values.
-- [ ] Test accuracy comparison and an interpreted confusion matrix.
-- [ ] A reasoned conclusion about which error matters most.
-- [ ] The full Titanic wrap-up and all four **Your turn** cells.
-- [ ] The workflow repeated on a second dataset, with a comparison paragraph.
-- [ ] All cells run successfully from beginning to end.
+- [x] All three learning-wave exercises.
+- [x] At least two models or one model tuned across several values.
+- [x] Test accuracy comparison and an interpreted confusion matrix.
+- [x] A reasoned conclusion about which error matters most.
+- [x] The full Titanic wrap-up and all four **Your turn** cells.
+- [x] The workflow repeated on a second dataset, with a comparison paragraph.
+- [x] All 23 code cells run successfully from beginning to end, with saved
+  outputs and no error outputs.
 
 ## Completion status
 
 The six-part NLP dataset worksheet, course-level slide deck, product test and
-workshop notebook are prepared. Max must add DataCamp chapters 1–4 proof,
-check the notebook outputs, review the product-test wording and record the
-face-to-camera presentation.
+workshop notebook are prepared. The technical notebook is complete and its
+outputs have been checked. Max must add DataCamp chapters 1–4 proof, review
+the product-test wording and record the face-to-camera presentation.

@@ -7,7 +7,8 @@
 2. Open the Week 1 notebook, answer the personal inputs and run every cell from
    top to bottom. The code now uses only the Python ideas taught in Week 1.
 3. Review the completed Week 5 product test in your own words and add DataCamp
-   chapters 1–4 proof.
+   chapters 1–4 proof. The Week 5 workshop notebook is complete: all 23 code
+   cells have saved outputs and no error outputs.
 4. Review the completed Week 6 Poke an LLM tests and the saved notebook
    outputs, then add the required DataCamp proof.
 5. Build the Week 7 Teachable Machine model: three classes, at least 30 images
