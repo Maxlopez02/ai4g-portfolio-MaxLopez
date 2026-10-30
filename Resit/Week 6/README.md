@@ -18,15 +18,16 @@ Prepare and record a 5–10 minute face-to-camera presentation covering:
 
 Complete `technical/Week6_Workshop_Resit.ipynb`, including:
 
-- [ ] Word-embedding exercises.
-- [ ] RNN and LSTM memory exercises, including the long-sequence test.
-- [ ] Transformer and attention exercises.
-- [ ] A 12-sentence sentiment-model stress test spanning at least four kinds of
+- [x] Word-embedding exercises.
+- [x] RNN and LSTM memory exercises, including the long-sequence test.
+- [x] Transformer and attention exercises.
+- [x] A 12-sentence sentiment-model stress test spanning at least four kinds of
   difficult language.
-- [ ] Human labels, model results, confidence values and agreement table.
-- [ ] Three detailed failure analyses and a two-prompt bias probe.
-- [ ] An approximately 150-word deployment judgement.
-- [ ] All cells run successfully from beginning to end.
+- [x] Human labels, model results, confidence values and agreement table.
+- [x] Three detailed failure analyses and a two-prompt bias probe.
+- [x] An approximately 150-word deployment judgement.
+- [x] All 26 code cells run successfully from beginning to end, with saved
+  outputs and no error outputs.
 
 ## Completion status
 

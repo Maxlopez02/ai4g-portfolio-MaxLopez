@@ -10,7 +10,9 @@
    chapters 1–4 proof. The Week 5 workshop notebook is complete: all 23 code
    cells have saved outputs and no error outputs.
 4. Review the completed Week 6 Poke an LLM tests and the saved notebook
-   outputs, then add the required DataCamp proof.
+   outputs. Then add proof for *Recurrent Neural Networks (RNN) for Language
+   Modeling with Keras* chapters 1 and 4, plus the *Introduction to LLMs in
+   Python* chapter **Getting started with Large Language Models (LLMs)**.
 5. Build the Week 7 Teachable Machine model: three classes, at least 30 images
    per class, a screenshot, a test result and one real failure.
 6. Add at least 10 permitted photos you took to the recreated Week 7 object-
