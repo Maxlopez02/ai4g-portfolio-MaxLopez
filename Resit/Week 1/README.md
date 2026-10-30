@@ -23,16 +23,17 @@ contain other people's names or signatures.
 
 Complete `technical/Week1_Workshop_Resit.ipynb`, including:
 
-- [ ] Python expressions and arithmetic operators.
-- [ ] Variables, data types, conversions, `print()` and `input()`.
-- [ ] Comparisons, Boolean logic and `if` / `elif` / `else`.
-- [ ] The **Green or Not?** CO2-budget calculator.
-- [ ] The fairness and climate-tax reflections.
-- [ ] All cells run successfully from beginning to end.
+- [x] Python expressions and arithmetic operators.
+- [x] Variables, data types, conversions, `print()` and `input()`.
+- [x] Comparisons, Boolean logic and `if` / `elif` / `else`.
+- [x] The **Green or Not?** CO2-budget calculator.
+- [x] The fairness and climate-tax reflections.
+- [x] All 20 code cells run successfully from beginning to end, with saved
+  outputs and no error outputs.
 
 ## Completion status
 
-The course-level notebook is prepared, but its personal input cells have been
-cleared. Max must enter his own answers and run the notebook from top to bottom.
-The Human Bingo still requires real conversations and submission through
-Brightspace.
+The course-level notebook is complete. Its saved run uses Max's scooter and
+AI-chat answers plus clearly labelled illustrative estimates where exact
+personal figures were unavailable. The Human Bingo still requires real
+conversations and submission through Brightspace.

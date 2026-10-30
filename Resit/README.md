@@ -8,7 +8,7 @@ folder.
 
 | Week | Conceptual / kickoff | Technical workshop | Current status |
 |---|---|---|---|
-| 1 | Human Bingo | Python basics | Bingo and a personal notebook run still needed |
+| 1 | Human Bingo | Python basics | Technical notebook complete; Human Bingo still needed |
 | 2 | Introduction to AI | Attended | Course-level worksheet and slides prepared; video needed |
 | 4 | Machine learning | Attended | Course-level worksheet and slides prepared; video needed |
 | 5 | NLP | Machine learning workshop | Technical notebook complete; DataCamp proof, review and video needed |
