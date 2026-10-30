@@ -8,8 +8,8 @@
    top to bottom. The code now uses only the Python ideas taught in Week 1.
 3. Review the completed Week 5 product test in your own words and add DataCamp
    chapters 1–4 proof.
-4. Review the completed Week 6 Poke an LLM tests. Run the Week 6 notebook,
-   save the real outputs, and add the required DataCamp proof.
+4. Review the completed Week 6 Poke an LLM tests and the saved notebook
+   outputs, then add the required DataCamp proof.
 5. Build the Week 7 Teachable Machine model: three classes, at least 30 images
    per class, a screenshot, a test result and one real failure.
 6. Add at least 10 permitted photos you took to the recreated Week 7 object-
