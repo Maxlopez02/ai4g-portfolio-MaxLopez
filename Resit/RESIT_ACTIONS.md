@@ -13,12 +13,7 @@
    Python* chapter **Getting started with Large Language Models (LLMs)**.
 4. Build the Week 7 Teachable Machine model: three classes, at least 30 images
    per class, a screenshot, a test result and one real failure.
-5. Add at least 10 permitted photos you took to the recreated Week 7 object-
-   recognition notebook. Write the bottle count for every image before running
-   the model, report precision, recall or count error, document a failure, and
-   explain a harm and safeguard. The named starter files were not published in
-   Brightspace when checked on 30 October.
-6. Add Week 7 DataCamp proof: Image Processing in Python chapters 1–2 and Deep
+5. Add Week 7 DataCamp proof: Image Processing in Python chapters 1–2 and Deep
    Learning for Images with PyTorch chapters 2–3.
 
 ## 2. Videos

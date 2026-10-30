@@ -13,7 +13,7 @@ folder.
 | 4 | Machine learning | Attended | Course-level worksheet and slides prepared; video needed |
 | 5 | NLP | Machine learning workshop | Technical notebook complete; DataCamp proof, review and video needed |
 | 6 | Language models | Language-model workshop | Technical notebook complete; DataCamp proof, review and video needed |
-| 7 | Computer vision | Computer-vision workshop | Personal images, notebook run, DataCamp proof and video needed |
+| 7 | Computer vision | Computer-vision workshop | Technical notebook complete; Teachable Machine, DataCamp proof and video needed |
 
 Week 3 is not included. The sheet shows one half-attendance mark, and the
 announcement says two half marks count as one retake.

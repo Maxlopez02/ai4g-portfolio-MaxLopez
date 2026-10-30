@@ -18,10 +18,18 @@ Complete after adding your own images:
   in the notebook before the model was run.
 - Evaluation metric: Mean absolute count error (MAE), supported by exact-count
   accuracy.
-- Model result and score:
-- One real failure:
-- Likely reason:
-- Who could be harmed by this type of failure?
-- Safeguard or human check:
+- Model result and score: Mean absolute count error 0.6 bottles per photo;
+  exact-count accuracy 90%; 7 true bottles and 13 predicted bottles in total.
+- One real failure: `one_bottle_01.png` contained one bottle, but the model
+  predicted seven.
+- Likely reason: The real bottle was detected, but several narrow containers
+  and dark vertical objects in the kitchen background were also marked as
+  bottles, creating six false positives.
+- Who could be harmed by this type of failure? An event organiser could trust
+  the overcount and provide too few drinking options. The same error pattern
+  would be more serious in a safety or medical setting.
+- Safeguard or human check: Show the marked image and confidence values, let a
+  person correct the count, and test more rooms, lighting conditions and
+  bottle types before wider use.
 
 Only commit photos that are safe and permitted to publish.
