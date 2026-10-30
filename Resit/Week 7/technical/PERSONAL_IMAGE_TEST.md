@@ -10,10 +10,14 @@ Complete after adding your own images:
 - User and small MVP goal: Count everyday reusable drink bottles in a small
   set of photos, so a student event organiser can estimate how many bottles
   are already in use before providing disposable cups.
-- At least 10 permitted photos taken by me:
-- Image filenames or folder:
-- Ground-truth labels written before running the model:
-- Evaluation metric:
+- At least 10 permitted photos taken by me: Yes — ten photos, with no
+  recognisable people.
+- Image filenames or folder: `week7_photos/`
+- Ground-truth labels written before running the model: Yes — seven images
+  contain one bottle and three contain zero bottles. The counts were entered
+  in the notebook before the model was run.
+- Evaluation metric: Mean absolute count error (MAE), supported by exact-count
+  accuracy.
 - Model result and score:
 - One real failure:
 - Likely reason:
