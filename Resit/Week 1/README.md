@@ -14,7 +14,7 @@ the **Attendance retake – Kickoff** Brightspace link.
   square.
 - [ ] Use each classmate for only one square.
 - [ ] Add Max's name and clearly mark all completed squares.
-- [ ] Submit the completed card directly through Brightspace.
+- [x] Submit the completed card directly through Brightspace.
 
 The completed card is not stored in this public repository because it may
 contain other people's names or signatures.
@@ -35,5 +35,5 @@ Complete `technical/Week1_Workshop_Resit.ipynb`, including:
 
 The course-level notebook is complete. Its saved run uses Max's scooter and
 AI-chat answers plus clearly labelled illustrative estimates where exact
-personal figures were unavailable. The Human Bingo still requires real
-conversations and submission through Brightspace.
+personal figures were unavailable. Max confirmed that the completed Human
+Bingo was submitted privately through Brightspace.
