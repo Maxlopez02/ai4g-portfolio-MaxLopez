@@ -15,16 +15,18 @@ the matching week folder.
 | 6 | Language models | Language-model workshop | Technical notebook and DataCamp proof complete; review and video needed |
 | 7 | Computer vision | Computer-vision workshop | Technical notebook and Teachable Machine evidence complete; DataCamp proof and video needed |
 
-Week 3 is not included. The sheet shows one half-attendance mark, and the
-announcement says two half marks count as one retake.
+Week 3 is not included in the attendance-retake table. The sheet shows one
+half-attendance mark, and the announcement says two half marks count as one
+retake. Week 3 does contain an individual hackathon redo below.
 
 ## Hackathon redos
 
 - [Week 2: Flow State, revised Hackathon 2 submission](Week%202/hackathon/)
+- [Week 3: MigrationHelp, individual Hackathon 3 submission](Week%203/hackathon/)
 
-The original Hackathon 2 submission remains under `Term 1/Week 2`. The revised
-version is stored here so the assessor can identify the redo without replacing
-the original portfolio evidence.
+The original Hackathon 2 and 3 submissions remain under their matching
+`Term 1` folders. The revised versions are stored here so the assessor can
+identify each redo without replacing the original portfolio evidence.
 
 ## Resit rules
 

@@ -23,6 +23,8 @@ build/
 .next/
 .cache/
 .video-build/
+.deck-build/
+.codex-finalizer/
 
 # --- OS junk ---
 .DS_Store
@@ -37,6 +39,8 @@ desktop.ini
 # --- Large files: link to them instead of committing them ---
 *.mp4
 !Term 1/Week 3/hackathon/demo/MigrationHelp-full-evidence-demo.mp4
+!Resit/Week 3/hackathon/demo/MigrationHelp-demo.mp4
+!Resit/Week 3/hackathon/demo/MigrationHelp-full-evidence-demo.mp4
 *.mov
 *.zip
 *.ckpt
