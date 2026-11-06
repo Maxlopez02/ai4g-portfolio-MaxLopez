@@ -1,98 +1,91 @@
-# AI Study Stress Coach
+# Flow State
 
-AI Study Stress Coach is an automated n8n workflow that helps students pause, assess study pressure, and receive short, personalised well-being guidance by email. It is designed for university and applied-science students who feel stressed by workload, poor sleep, and approaching deadlines.
+Flow State is an n8n study planner for adult HBO and WO students who have several assignments due within the same week. A student pastes an unstructured list of tasks and deadlines, enters the time they actually have, and receives a seven-day plan that does not schedule more work than the stated capacity.
 
-> This is a general well-being support tool, not a therapist, diagnostic system, crisis service, or replacement for professional help.
+The prototype is linked to SDG 3: Good Health and Well-being. It addresses one specific contributor to study stress: making plans that look possible but require more hours than the student has. In the 2025 Dutch student monitor, 53% of participating HBO and WO students reported a lot or very high stress in the previous four weeks. Study was the most frequently reported stress source. Source: [RIVM and Trimbos, Monitor Mentale gezondheid en Middelengebruik Studenten hbo en wo 2025](https://www.rivm.nl/publicaties/monitor-mentale-gezondheid-en-middelengebruik-studenten-hbo-en-wo-2025).
 
-## Submission assets
+## Final submission files
 
-- [Importable n8n workflow](workflow/ai-study-stress-coach.json)
-- [Corrected demo video](demo/ai-study-stress-coach-demo.mp4)
-- [Presentation deck](presentation/ai-study-stress-coach-deck.pdf)
+- [Presentation](Flow-State-Presentation.pptx)
+- [Narrated demo](Flow-State-Demo.mp4)
+- [Importable n8n workflow](Flow-State-n8n-Workflow.json)
+- [Ethical reflection](ETHICAL_REFLECTION.md)
 
-The repository contains no API keys, OAuth tokens, or live student data. Credential references, deployment identifiers, and the private Google Sheet URL were removed from the public workflow export.
+## Intended user
 
-## Team contributions
+Flow State is for adult HBO and WO students who:
 
-- **Maximilian Lopez:** n8n workflow, scoring logic, AI safety instructions, formatted email, Google Sheets logging, testing, and demo.
-- **Lili Tarnok:** PowerPoint presentation.
+- have several assignments or deadlines in the next seven days;
+- can give a rough estimate of their available study time;
+- need help turning free-form task notes into a realistic first plan.
 
-## What it does
+It is not intended for minors, crisis support, diagnosis, therapy, or decisions about academic requirements. Students must confirm official deadlines and effort estimates themselves.
 
-1. A student submits a short n8n form with their stress level, sleep, workload, deadlines, and a brief description of how they feel.
-2. The workflow cleans the form data and calculates a transparent project stress score.
-3. It assigns a Low, Moderate, or High category and flags very high stress or signs of serious overwhelm.
-4. An OpenAI node produces fewer than 150 words of warm, practical guidance under strict safety instructions.
-5. n8n formats and emails a visual stress snapshot to the student.
-6. The check-in and response are appended to a restricted Google Sheet for review.
+## What the user enters
 
-```mermaid
-flowchart LR
-    A[Student Check-In Form] --> B[Clean Form Data]
-    B --> C[Assess Stress]
-    C --> D[AI Well-Being Coach]
-    D --> E[Compose Message]
-    E --> F[Email Student]
-    E --> G[Log Check-In]
-```
+The form asks for:
 
-## Hackathon requirements
+- first name;
+- assignments and deadlines in free text;
+- hours available per study day;
+- available study days;
+- energy level;
+- current stress on a 1–10 scale;
+- preferred focus-session length.
 
-| Requirement | Implementation |
-| --- | --- |
-| Built in n8n with at least 6 connected nodes | 7 connected nodes |
-| Includes an AI node | OpenAI generates context-specific guidance |
-| Runs automatically | An n8n Form Trigger starts the workflow on every submission |
-| Addresses SDG 3 and mental health | Supports student stress awareness and well-being while directing serious concerns to people |
+The form tells users not to enter sensitive medical information.
 
-## SDG 3: Good Health and Well-being
+## How the workflow works
 
-The project supports [UN Sustainable Development Goal 3](https://sdgs.un.org/goals/goal3), including mental health and well-being. Study pressure, inadequate sleep, and heavy workloads can make it harder for students to organise work or ask for help. This workflow lowers the friction of taking a first step: it combines a short check-in, a transparent rule-based category, personalised wording, email delivery, and a logged result.
+The workflow contains nine connected n8n nodes.
 
-It does not claim to diagnose, treat, or prevent a mental-health condition.
+1. **Student Intake Form** collects the planning information.
+2. **Validate and Normalise** cleans the fields, checks ranges, and converts the selected weekdays.
+3. **Calculate Focus Capacity** reduces raw availability to an estimated focus limit. It reserves break time and applies transparent energy and stress factors.
+4. **Prepare AI Extraction** places the student's task text inside a bounded prompt and treats it as untrusted data.
+5. **AI Task Interpreter** uses OpenAI `gpt-4o-mini` to convert the free text into structured task JSON: title, due date, estimated hours, whether the estimate was inferred, and confidence.
+6. **Verify AI Task JSON** rejects malformed output, checks dates and effort values, limits the task count, and adds warnings for assumptions or missing deadlines.
+7. **Schedule Without Overbooking** uses JavaScript rather than the language model to place tasks before their deadlines. It never exceeds the calculated daily capacity and reports work that cannot fit.
+8. **Render Student Plan** creates the result page with the schedule and its warnings.
+9. **Show Plan to Student** displays the result immediately in the form.
 
-## Scoring logic
+The AI step is necessary because students can describe the same assignment in many ways. A fixed form cannot reliably extract task titles, relative dates, and effort information from that text. The language model does not decide the final schedule. Code verifies its output and enforces the time limits.
 
-The project score is:
+## Why a calendar or chatbot is not enough
 
-```text
-stress + (0.6 x workload) + (0.5 x deadlines) + sleep adjustment
-```
+A calendar requires the student to structure every task and decide how much work belongs on each day. A normal chatbot can interpret free text, but its arithmetic and deadline handling can be inconsistent. Flow State connects free-text extraction with deterministic checks. Its most important output is sometimes a warning that the submitted workload cannot fit.
 
-- Less than 4 hours of sleep adds 3 points.
-- From 4 to less than 6 hours adds 1.5 points.
-- A score below 8 is Low, 8 to below 14 is Moderate, and 14 or more is High.
-- A High category, a self-reported stress level of 9 or 10, or selected distress language activates the support suggestion.
+## Tested scenarios
 
-This score is a project rule for routing support. It is not a validated clinical scale or a diagnosis.
+The prototype was tested through the authenticated n8n Cloud test form.
 
-## How to run it
+| Scenario | Input condition | Observed result |
+| --- | --- | --- |
+| Feasible workload | Two tasks with clear dates and 7 hours of work | 7 hours scheduled and 0 hours left unscheduled |
+| Overload | 22 hours of work with insufficient time before the deadlines | 1.25 hours scheduled and 20.75 hours shown as unscheduled |
+| Uncertain information | A presentation without a reliable date or effort estimate | No deadline invented; a 1.5-hour provisional estimate was visibly flagged |
 
-You need an n8n instance and credentials for OpenAI, Gmail, and Google Sheets.
+These tests show functional behaviour. They do not prove that the tool reduces stress. User testing with students is still needed.
 
-1. Download [the workflow JSON](workflow/ai-study-stress-coach.json).
-2. In n8n, choose **Import from File** and select the JSON.
-3. Open **AI Well-Being Coach** and connect an OpenAI credential. Confirm that the selected model is available to your account.
-4. Open **Email Student** and connect the Gmail account that should send the guidance.
-5. Create a restricted Google Sheet with these headers: `Timestamp`, `Name`, `Email`, `Stress Level`, `Sleep Hours`, `Workload`, `Deadlines`, `Feeling`, `Stress Category`, `Stress Score`, and `AI Response`.
-6. Open **Log Check-In**, connect Google Sheets, select the new document and sheet, and confirm the column mapping.
-7. Test the workflow with fictional data and an authorised test inbox. Do not enter real sensitive information during setup.
-8. Publish the form and activate the workflow. After activation, each form submission triggers the complete flow automatically; no manual run is needed.
+## Run the prototype
 
-The exported workflow is intentionally inactive so importing it cannot send email or write data before the reviewer configures their own credentials.
+1. Import `Flow-State-n8n-Workflow.json` into n8n.
+2. Open **04 AI Task Interpreter** and select an OpenAI credential with access to `gpt-4o-mini`.
+3. Save the workflow and choose **Execute workflow** to open the test form.
+4. Submit a realistic set of assignments and available hours.
+5. Check the result page, especially inferred estimates, missing dates, and unscheduled hours.
 
-## Ethical reflection
+The current workflow does not send email and does not deliberately append form data to an external spreadsheet. The result appears in the form response.
 
-I would not trust this automation to make health decisions for me. Its score is a simple project rule, and the AI can misunderstand context or give advice that is generic, unsuitable, late, or unavailable. A student might also mistake a High label for a diagnosis, while a failed email could create false reassurance because the form confirms submission before delivery finishes. Automation should stop at low-risk check-in, general study and self-care suggestions, and signposting. A trusted person, study counsellor, or healthcare professional should take over whenever someone feels unable to cope, may be at risk, needs a diagnosis or treatment, or asks for human help. In real use, execution failures should be monitored, support options should appear directly on the confirmation page, access to the Sheet should be restricted, and identifiable check-ins should have a defined deletion period.
+## Current limitations
 
-## Privacy and safety notes
+- Capacity is an estimate based on self-reported time, energy, and stress.
+- Missing effort is provisionally estimated at 1.5 hours and clearly marked as inferred.
+- The planner covers seven days only.
+- The workflow does not edit a plan after submission or sync with a calendar.
+- Provider and n8n retention settings must be reviewed before use with real student data.
+- The narrated video documents the tested workflow and outcomes, but it is not a continuous live screen capture.
 
-- The form collects names, email addresses, and well-being responses; these are sensitive personal data.
-- Use data minimisation, informed consent, restricted access, retention limits, and deletion procedures before any real deployment.
-- Do not place crisis detection or emergency response responsibility on this workflow.
-- Review the AI instructions and test cases regularly for bias, unsafe wording, and false reassurance.
-- Monitor n8n executions so email or logging failures are visible to the operator.
+## Responsible use
 
-## Demo
-
-The [demo video](demo/ai-study-stress-coach-demo.mp4) shows the real form and automated support flow. The [presentation deck](presentation/ai-study-stress-coach-deck.pdf) explains the problem, workflow, scoring rule, SDG 3 connection, and ethical safeguards. All demonstration inputs are fictional.
+Flow State supports planning. It must not be presented as a mental-health assessment or as proof that a student can safely handle a workload. The [ethical reflection](ETHICAL_REFLECTION.md) explains the main risks, the safeguards already implemented, and the next changes required before real deployment.
