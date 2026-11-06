@@ -28,7 +28,8 @@ missed conceptual session. The slides are visual prompts, not a script.
    Brightspace attendance-retake links.
 2. Commit the finished technical evidence to this `Resit` folder.
 3. Put the repository link in the `redos` tab of the central Hackathons Google
-   Sheet and list the attendance-resit weeks clearly.
+   Sheet. State clearly that **Hackathon 2 was revised** and list the
+   attendance-resit weeks.
 4. Finish before Friday 6 November 2026 at 23:59.
 
 Hackathon redos are optional grade improvements. None are required merely

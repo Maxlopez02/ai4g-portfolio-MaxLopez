@@ -1,8 +1,8 @@
-# Term 1 attendance resits
+# Term 1 resits and hackathon redos
 
-This folder is only for the attendance retakes shown as missing on the
-attendance sheet. Hackathon redos are optional and are not mixed into this
-folder.
+This folder contains the attendance retakes shown as missing on the attendance
+sheet and the hackathon redos submitted for reassessment. Each item remains in
+the matching week folder.
 
 ## What the attendance sheet requires
 
@@ -18,12 +18,22 @@ folder.
 Week 3 is not included. The sheet shows one half-attendance mark, and the
 announcement says two half marks count as one retake.
 
+## Hackathon redos
+
+- [Week 2: Flow State, revised Hackathon 2 submission](Week%202/hackathon/)
+
+The original Hackathon 2 submission remains under `Term 1/Week 2`. The revised
+version is stored here so the assessor can identify the redo without replacing
+the original portfolio evidence.
+
 ## Resit rules
 
 - Conceptual retakes are 5–10 minute face-to-camera videos submitted through
   Brightspace. Explain the ideas naturally; do not read the slides as a script.
 - Technical retakes need GitHub proof of the preparation, homework and in-class
   assignments for that missed workshop.
+- Hackathon redos must be stored in the matching week under this `Resit` folder
+  and identified in the `redos` tab of the central Hackathons Google Sheet.
 - Personal observations, screenshots, classmate conversations and completed
   DataCamp chapters cannot be prepared in advance and must be added by Max.
 - The Week 7 DonationCount notebook is labelled as an optional practice demo.
