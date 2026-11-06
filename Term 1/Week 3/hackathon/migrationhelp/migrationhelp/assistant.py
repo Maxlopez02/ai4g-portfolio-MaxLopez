@@ -34,6 +34,7 @@ class MigrationAnswer:
     risk_level: str
     source_ids: list[str]
     used_sources: list[Source]
+    model_used: str
 
 
 class AnswerPayload(BaseModel):
@@ -92,7 +93,7 @@ Rules:
 """.strip()
 
 
-def _parse_answer(payload: str, sources: list[Source]) -> MigrationAnswer:
+def _parse_answer(payload: str, sources: list[Source], *, model_used: str = "Gemini") -> MigrationAnswer:
     data = AnswerPayload.model_validate_json(payload).model_dump()
     required = {"direct_answer", "steps", "what_to_prepare", "limits", "risk_level", "source_ids"}
     if set(data) != required:
@@ -113,7 +114,73 @@ def _parse_answer(payload: str, sources: list[Source]) -> MigrationAnswer:
         risk_level=data["risk_level"],
         source_ids=valid_source_ids,
         used_sources=used,
+        model_used=model_used,
     )
+
+
+def prepare_request(
+    question: str,
+    language: str,
+    stay_length: str,
+    municipality: str,
+) -> tuple[list[Source], str]:
+    """Select the evidence and build the text sent to Gemini.
+
+    Keeping this separate from the network call makes the AI input inspectable
+    and testable without an API key.
+    """
+
+    sources = select_sources(question)
+    source_context = format_source_context(sources)
+    user_context = (
+        f"REQUESTED_LANGUAGE: {language}\n"
+        f"PLANNED_STAY: {stay_length}\n"
+        f"MUNICIPALITY_OR_CITY: {municipality.strip() or 'not provided'}\n"
+        f"USER_QUESTION:\n<user_question>{question.strip()}</user_question>\n\n"
+        f"OFFICIAL_SOURCE_PACK:\n{source_context}"
+    )
+    return sources, user_context
+
+
+def build_generation_config() -> types.GenerateContentConfig:
+    """Return the constraints applied to every Gemini request."""
+
+    return types.GenerateContentConfig(
+        system_instruction=SYSTEM_INSTRUCTIONS,
+        response_mime_type="application/json",
+        response_schema=GEMINI_RESPONSE_SCHEMA,
+        max_output_tokens=700,
+        temperature=0.2,
+    )
+
+
+def call_gemini(
+    api_client,
+    user_context: str,
+    config: types.GenerateContentConfig,
+    model: str,
+    fallback_model: str,
+) -> tuple[str, str]:
+    """Return Gemini response text and the model that produced it."""
+
+    try:
+        response = api_client.models.generate_content(model=model, contents=user_context, config=config)
+        model_used = model
+    except errors.ServerError:
+        # A temporary provider failure gets one controlled retry, not an
+        # unbounded loop. Other errors return to the safe UI failure path.
+        if fallback_model == model:
+            raise
+        response = api_client.models.generate_content(
+            model=fallback_model,
+            contents=user_context,
+            config=config,
+        )
+        model_used = fallback_model
+
+    if not getattr(response, "text", ""):
+        raise ValueError("The AI returned no answer.")
+    return response.text, model_used
 
 
 def answer_question(
@@ -126,38 +193,13 @@ def answer_question(
 ) -> MigrationAnswer:
     """Call the Gemini API and return a validated, source-grounded answer."""
 
-    sources = select_sources(question)
-    source_context = format_source_context(sources)
+    sources, user_context = prepare_request(question, language, stay_length, municipality)
     model = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
     fallback_model = os.getenv("GEMINI_FALLBACK_MODEL", "gemini-3.8-flash")
     api_client = client or genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-
-    user_context = (
-        f"REQUESTED_LANGUAGE: {language}\n"
-        f"PLANNED_STAY: {stay_length}\n"
-        f"MUNICIPALITY_OR_CITY: {municipality.strip() or 'not provided'}\n"
-        f"USER_QUESTION:\n<user_question>{question.strip()}</user_question>\n\n"
-        f"OFFICIAL_SOURCE_PACK:\n{source_context}"
-    )
-
-    config = types.GenerateContentConfig(
-        system_instruction=SYSTEM_INSTRUCTIONS,
-        response_mime_type="application/json",
-        response_schema=GEMINI_RESPONSE_SCHEMA,
-        max_output_tokens=700,
-        temperature=0.2,
-    )
-
-    try:
-        response = api_client.models.generate_content(model=model, contents=user_context, config=config)
-    except errors.ServerError:
-        # If Gemini has a temporary server problem, try one backup model.
-        if fallback_model == model:
-            raise
-        response = api_client.models.generate_content(model=fallback_model, contents=user_context, config=config)
-    if not getattr(response, "text", ""):
-        raise ValueError("The AI returned no answer.")
-    return _parse_answer(response.text, sources)
+    config = build_generation_config()
+    response_text, model_used = call_gemini(api_client, user_context, config, model, fallback_model)
+    return _parse_answer(response_text, sources, model_used=model_used)
 
 
 def friendly_api_error(error: Exception) -> str:

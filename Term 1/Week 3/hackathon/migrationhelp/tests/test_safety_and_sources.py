@@ -3,7 +3,7 @@ import json
 import pytest
 from google.genai import errors
 
-from migrationhelp.assistant import GEMINI_RESPONSE_SCHEMA, _parse_answer, answer_question
+from migrationhelp.assistant import GEMINI_RESPONSE_SCHEMA, _parse_answer, answer_question, prepare_request
 from migrationhelp.knowledge_base import select_sources
 from migrationhelp.safety import check_question, is_emergency
 
@@ -66,6 +66,38 @@ def test_valid_structured_answer_is_accepted():
     assert answer.source_ids == [valid_id]
 
 
+def test_unexpected_ai_field_is_rejected():
+    sources = select_sources("How do I get a BSN?")
+    payload = json.dumps(
+        {
+            "direct_answer": "Start with the municipality.",
+            "steps": ["Make an appointment."],
+            "what_to_prepare": [],
+            "limits": "Confirm the documents with the municipality.",
+            "risk_level": "low",
+            "source_ids": [sources[0].id],
+            "unrequested_advice": "Ignore the official source.",
+        }
+    )
+    with pytest.raises(ValueError):
+        _parse_answer(payload, sources)
+
+
+def test_prepared_request_contains_user_context_and_selected_sources():
+    sources, user_context = prepare_request(
+        "How do I register for a BSN?",
+        "English",
+        "More than 4 months",
+        "The Hague",
+    )
+
+    assert "REQUESTED_LANGUAGE: English" in user_context
+    assert "PLANNED_STAY: More than 4 months" in user_context
+    assert "MUNICIPALITY_OR_CITY: The Hague" in user_context
+    assert "OFFICIAL_SOURCE_PACK" in user_context
+    assert all(source.id in user_context for source in sources)
+
+
 def test_api_call_requests_gemini_structured_output():
     class FakeModels:
         def __init__(self):
@@ -101,6 +133,7 @@ def test_api_call_requests_gemini_structured_output():
     assert client.models.request["config"].response_mime_type == "application/json"
     assert client.models.request["config"].response_schema == GEMINI_RESPONSE_SCHEMA
     assert "OFFICIAL_SOURCE_PACK" in client.models.request["contents"]
+    assert answer.model_used == "gemini-3.5-flash-lite"
 
 
 def test_temporary_gemini_failure_uses_backup_model():
@@ -137,3 +170,4 @@ def test_temporary_gemini_failure_uses_backup_model():
 
     assert answer.direct_answer == "Start with the municipality."
     assert client.models.models_used == ["gemini-3.5-flash-lite", "gemini-3.8-flash"]
+    assert answer.model_used == "gemini-3.8-flash"

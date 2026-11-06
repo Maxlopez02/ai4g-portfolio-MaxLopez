@@ -1,6 +1,11 @@
 # MigrationHelp demo and verification script
 
-Record a 2–3 minute screen capture. Show the app, terminal test result and one real API-driven answer. Do not show the `.env` file or API key.
+Use this script for a live presentation or a longer replacement recording. Show the app, terminal test result and one real API-driven answer. Do not show the `.env` file or API key.
+
+Two recordings are included with the submission:
+
+- [`MigrationHelp-demo.mp4`](MigrationHelp-demo.mp4) is a 48-second narrated overview with burned-in captions and the real Python API call.
+- [`MigrationHelp-full-evidence-demo.mp4`](MigrationHelp-full-evidence-demo.mp4) is a 60-second silent browser walkthrough with visible action highlights. It shows the complete routine answer, preparation items, limitations, all official links, BSN blocking and the high-risk IND handoff.
 
 ## Before recording
 

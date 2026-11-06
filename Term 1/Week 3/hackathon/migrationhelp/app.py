@@ -159,6 +159,18 @@ if submitted:
                 st.info(answer.limits)
                 show_sources(answer.source_ids)
 
+                with st.expander("How this answer was produced"):
+                    st.markdown("1. Python passed the question through local privacy and emergency checks.")
+                    st.markdown(
+                        f"2. The keyword router selected {len(answer.used_sources)} reviewed official source(s): "
+                        + ", ".join(f"`{source.id}`" for source in answer.used_sources)
+                        + "."
+                    )
+                    st.markdown(f"3. `{answer.model_used}` returned structured JSON rather than a finished web page.")
+                    st.markdown(
+                        f"4. Python accepted {len(answer.source_ids)} source ID(s), checked the required fields and then displayed the route."
+                    )
+
 st.markdown("---")
 st.caption(
     "MigrationHelp gives general public information, not legal or medical advice. Rules and personal circumstances can change the answer. Verify critical details with the linked authority."

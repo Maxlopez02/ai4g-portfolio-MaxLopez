@@ -1,39 +1,27 @@
-# MigrationHelp submission checklist
+# MigrationHelp resit status
 
-The technical submission package is complete and aligned to the Hackathon 3 rubric.
+The original package is superseded by [`RESIT_SUBMISSION_CHECKLIST.md`](RESIT_SUBMISSION_CHECKLIST.md).
 
-## Ready to submit
+## Completed technical work
 
-- [x] Working Python/Streamlit product in [`migrationhelp/`](migrationhelp/)
-- [x] Direct live Gemini API call through the official `google-genai` Python SDK
-- [x] Setup and run instructions in [`README.md`](README.md)
-- [x] Beginner-friendly code explanation in [`HOW_THE_CODE_WORKS.md`](HOW_THE_CODE_WORKS.md)
-- [x] Source-backed problem definition and SDG 10 link in [`README.md`](README.md)
-- [x] Specific user group and explicit exclusions
-- [x] Edge-case handling for sensitive data, emergencies, invalid AI output and API failure
-- [x] Honest ethical reflection in [`ETHICAL_REFLECTION.md`](ETHICAL_REFLECTION.md)
-- [x] Rubric evidence map in [`RUBRIC_EVIDENCE.md`](RUBRIC_EVIDENCE.md)
-- [x] Nine passing automated tests recorded in [`demo/LIVE_TEST_RESULT.md`](demo/LIVE_TEST_RESULT.md)
-- [x] Live API demo recording with narration, burned-in captions and a Python API-call code card in [`demo/MigrationHelp-demo.mp4`](demo/MigrationHelp-demo.mp4)
-- [x] Eight-slide presentation, including the real Python API call, in [`presentation/MigrationHelp-Hackathon-3-final.pptx`](presentation/MigrationHelp-Hackathon-3-final.pptx)
-- [x] `.env` is ignored and the API key is not included in submission files
+- [x] Working Python/Streamlit product
+- [x] Direct Gemini API call through the official Google SDK
+- [x] Visible evidence trail showing the Gemini model and validated source IDs
+- [x] Source-backed SDG 10 problem definition and narrow user group
+- [x] Input safety, source routing, structured output, validation, and safe failure path
+- [x] Eleven passing automated tests on 6 November 2026
+- [x] Fresh live Gemini request on 6 November 2026
+- [x] Worked code explanation and explicit AI-use register
+- [x] Editable resit presentation
 
-## Team details completed
+## Required before submission
 
-- [x] Maximilian Lopez and Quinten van Ingen are named in both README files and on the presentation cover.
-- [x] Contributions state that Quinten developed the concept and initial idea, while Maximilian completed the implementation and technical submission work.
+- [ ] Complete the evidence rows in [`TEAM_RESIT_LOG.md`](TEAM_RESIT_LOG.md)
+- [ ] Quinten completes meaningful source/safety code and test work
+- [ ] Both students can explain their code without reading generated text
+- [ ] Record the one-take two-person defence in [`demo/RESIT_LIVE_DEFENCE.md`](demo/RESIT_LIVE_DEFENCE.md)
+- [ ] Add the new recording to the repository and README
+- [ ] Recheck official sources on the actual submission date
+- [ ] Confirm `.env` and the Gemini key remain excluded
 
-Check for remaining placeholders with:
-
-```bash
-rg -n "add name|replace with the work|actual contribution" . ../README.md
-```
-
-## Final hand-in steps
-
-1. Run `python -m pytest -q` once more from `migrationhelp/`.
-2. Push this Week 3 folder to the GitHub repository.
-3. Open the GitHub links while logged out to confirm the README, MP4 and PPTX are accessible.
-4. Submit the GitHub repository link in the HHS submission sheet.
-
-Do not commit `migrationhelp/.env` or paste the Gemini key into screenshots, documentation, issues or commits.
+The resit is not ready while any item in the second section remains unchecked.

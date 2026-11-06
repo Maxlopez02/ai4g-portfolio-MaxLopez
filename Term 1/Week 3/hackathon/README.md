@@ -7,15 +7,22 @@ MigrationHelp is a Python/Streamlit chatbot that helps recently arrived adults i
 ## Submission assets
 
 - [Working Python application](migrationhelp/)
-- [Simple explanation of the Python and API call](HOW_THE_CODE_WORKS.md)
+- [Worked explanation that follows one input through the code](HOW_THE_CODE_WORKS.md)
+- [AI-use register and required human checks](AI_USE_REGISTER.md)
+- [Team resit responsibility and evidence log](TEAM_RESIT_LOG.md)
+- [Resit completion checklist](RESIT_SUBMISSION_CHECKLIST.md)
+- [Two-person live defence plan](demo/RESIT_LIVE_DEFENCE.md)
 - [Demo and recording script](demo/DEMO_SCRIPT.md)
 - [Narration, caption and code-card script](demo/NARRATION_SCRIPT.md)
-- [Recorded working demo (MP4)](demo/MigrationHelp-demo.mp4)
+- [Original short narrated API demo (MP4)](demo/MigrationHelp-demo.mp4)
+- [Original browser evidence walkthrough (MP4)](demo/MigrationHelp-full-evidence-demo.mp4)
 - [Live Gemini verification record](demo/LIVE_TEST_RESULT.md)
 - [Ethical reflection](ETHICAL_REFLECTION.md)
 - [Rubric evidence map](RUBRIC_EVIDENCE.md)
 - [Team presentation](presentation/MigrationHelp-Hackathon-3-final.pptx)
 - [Final submission checklist](SUBMISSION_CHECKLIST.md)
+
+> **Resit status:** The technical changes and evidence are prepared, but the resit is not ready to submit until both students complete `TEAM_RESIT_LOG.md` and record the new live defence with their real voices. The two original videos remain as historical evidence; they do not prove balanced work or code understanding.
 
 ## The specific inequality
 
@@ -72,6 +79,21 @@ The API is necessary: keyword routing finds relevant evidence, but the LLM perfo
 
 For a short, presentation-ready explanation of the code, see [How the Python and Gemini API call work](HOW_THE_CODE_WORKS.md).
 
+## Why this is more than a prompt wrapper
+
+MigrationHelp runs a controlled user workflow around the model. The AI does not receive an unrestricted question and return unchecked prose.
+
+| Stage | What the product does | User benefit |
+| --- | --- | --- |
+| Input control | Python rejects empty input, oversized questions, likely identity numbers and urgent-danger language before Gemini runs. | Reduces accidental data disclosure and routes emergencies away from the chatbot. |
+| Evidence selection | A deterministic router selects a small set of relevant facts from six reviewed Government.nl and IND pages. | Keeps the response focused on the user's topic and makes the evidence inspectable. |
+| AI transformation | Gemini adapts the selected facts to the user's language, stay length, city and question, then orders them into a short route. | Turns fragmented public information into a usable first-step plan. |
+| Output gate | A strict schema limits the response fields and Python rejects malformed output or source IDs that were not supplied. | Prevents the interface from displaying an answer that fails the product's minimum checks. |
+| Actionable result | The interface shows ordered steps, preparation items, limitations, a risk label and clickable official sources. | The user knows what to do next and where to verify it. |
+| Failure path | If Gemini or validation fails, the generated answer stays hidden while relevant official links remain available. | A service failure does not become invented guidance. |
+
+This end-to-end flow is implemented in the application, exercised by automated tests, and shown from input through official-source handoff in the full browser evidence walkthrough. It addresses the earlier scope problem by delivering a complete information-navigation task rather than merely displaying an LLM response.
+
 ## Run locally
 
 Requires Python 3.10+ and a Google Gemini API key. Never commit the key. The implementation follows Google's [structured-output guidance for the Gemini Python SDK](https://ai.google.dev/gemini-api/docs/generate-content/structured-output).
@@ -103,7 +125,7 @@ cd "Term 1/Week 3/hackathon/migrationhelp"
 python -m pytest -q
 ```
 
-They cover topic routing, empty input, likely BSN blocking, emergency detection, rejection of invented source IDs, acceptance of a valid structured answer, the Gemini request configuration, and temporary server-error fallback. The live cases and results are recorded in [the verification record](demo/LIVE_TEST_RESULT.md).
+The 11 tests cover topic routing, empty input, likely BSN blocking, emergency detection, prepared request content, rejection of invented source IDs and unexpected fields, acceptance of a valid structured answer, the Gemini request configuration, model tracking, and temporary server-error fallback. The live cases and results are recorded in [the verification record](demo/LIVE_TEST_RESULT.md).
 
 ## What happens when the AI gives a bad answer?
 
@@ -119,7 +141,7 @@ These controls reduce risk but cannot guarantee factual correctness or equal tra
 
 ## Official information pack
 
-The app uses only these pages, reviewed on 23 September 2026:
+The app uses only these pages, reviewed on 23 September 2026 and rechecked for availability on 25 September 2026:
 
 - [Moving to the Netherlands — Government.nl](https://www.government.nl/faq/what-do-i-need-to-arrange-if-im-moving-to-the-netherlands)
 - [Registering in the BRP — Government.nl](https://www.government.nl/faq/when-should-i-register-with-the-personal-records-database-as-a-resident)
@@ -132,9 +154,9 @@ This is a curated prototype, not live retrieval. That makes evidence auditable b
 
 ## Team contributions
 
-- **Maximilian Lopez:** Python and Streamlit implementation, Gemini API integration, validation and safety controls, testing, demo, documentation and presentation preparation.
-- **Quinten van Ingen:** Project concept and initial idea.
-- **AI use:** OpenAI Codex helped draft, test and document the prototype and prepare the presentation. The team reviewed the working app and must be able to explain every design decision.
+- **Original submission:** Maximilian completed most implementation and submission work; Quinten contributed the initial concept. The assessor correctly identified this as unbalanced.
+- **Resit:** The intended split, required proof, and blank completion record are in [the team resit log](TEAM_RESIT_LOG.md). Do not claim the new split is complete until the named student has added evidence.
+- **AI use:** Codex drafted parts of the resit code, tests, documentation, and deck. [The AI-use register](AI_USE_REGISTER.md) states the human checks still required. AI assistance is not evidence of student understanding.
 
 ## Ethical reflection
 

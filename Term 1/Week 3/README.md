@@ -20,16 +20,13 @@ _List the files, or link to them. Notebook exports, screenshots, scripts._
 
 ## 2. Hackathon prototype -> [`hackathon/`](hackathon/)
 
-> Your tool and your SDG for this hackathon are announced at the **start of Friday's class**.
-> Write them down here once you know them.
-
 **Project title:**
 
 MigrationHelp — a source-grounded migration information navigator
 
 **My pair partner:**
 
-_Add your randomly assigned partner's name before submission._
+Quinten van Ingen
 
 **Tool we had to use:**
 
@@ -40,19 +37,16 @@ Google Gemini API called directly from Python (Streamlit application)
 SDG 10 — Reduced Inequalities
 
 **What problem does it solve, and for whom?**
-_Name a real, specific user. "Everyone" is not a user._
 
 Recently arrived adults in the Netherlands with limited Dutch must quickly navigate multiple public organisations. MigrationHelp reduces this administrative information gap by turning reviewed official information into a short route in the user's language. It is not for asylum decisions, emergencies, legal representation or medical advice.
 
 **What did you build?**
-_Two or three sentences. What can a user actually do with it?_
 
 A user selects a language and stay length, asks a routine migration-administration question, and receives ordered next steps plus clickable Government.nl or IND sources. The Python app makes a live Google Gemini API call, validates its structured answer and citations, blocks likely identity details, and fails safely when the AI output cannot be verified.
 
-**Link to the live thing (if any):**
-_Deployed URL, workflow export, video demo - whatever proves it works._
+**Proof that it works:**
 
-See the [working product, documentation and demo materials](hackathon/), including the [recorded live demo](hackathon/demo/MigrationHelp-demo.mp4).
+See the [working product and resit materials](hackathon/). The technical evidence includes 11 passing tests and a fresh live Gemini call. A new two-person live defence is still required because the original generated/silent videos do not prove balanced work or code understanding.
 
 **How do I run it?**
 _Short instructions so someone else can start it._
@@ -60,11 +54,10 @@ _Short instructions so someone else can start it._
 From `hackathon/migrationhelp`: create a Python virtual environment, install `requirements.txt`, copy `.env.example` to `.env`, add `GEMINI_API_KEY`, and run `streamlit run app.py`. Full steps are in the project README.
 
 **Who did what?**
-_Be honest about the split of work between you and your partner._
 
-- Maximilian Lopez: Python and Streamlit implementation, Gemini API integration, validation and safety controls, testing, demo, documentation and presentation preparation.
-- Quinten van Ingen: Project concept and initial idea.
-- AI assistance: OpenAI Codex helped draft, test and document the prototype and prepare the presentation; the team reviewed the working app and must be able to explain it.
+- Original submission: Maximilian completed most implementation and submission work; Quinten contributed the initial concept. This split was not balanced.
+- Resit: Both students must complete the responsibilities and evidence in [`hackathon/TEAM_RESIT_LOG.md`](hackathon/TEAM_RESIT_LOG.md) before submission.
+- AI assistance: Codex drafted parts of the resit. The required disclosure and human checks are in [`hackathon/AI_USE_REGISTER.md`](hackathon/AI_USE_REGISTER.md).
 
 **Ethical reflection - what are the risks of your tool? Who could it harm?**
 _Every hackathon requires this. One honest paragraph beats three vague ones._

@@ -32,9 +32,11 @@ desktop.ini
 # --- Editors ---
 .vscode/
 .idea/
+~$*
 
 # --- Large files: link to them instead of committing them ---
 *.mp4
+!Term 1/Week 3/hackathon/demo/MigrationHelp-full-evidence-demo.mp4
 *.mov
 *.zip
 *.ckpt
