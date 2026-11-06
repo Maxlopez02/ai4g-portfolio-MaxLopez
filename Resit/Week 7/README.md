@@ -1,5 +1,11 @@
 # Week 7 resits
 
+## Hackathon 7 resit
+
+The assessor-ready individual Hackathon 7 resit is in
+[`hackathon/`](hackathon/README.md). It directly addresses the three knockout
+criteria, links the GitHub repository and clarifies the contribution record.
+
 ## Conceptual — Computer vision
 
 Prepare and record a 5–10 minute face-to-camera presentation covering:
