@@ -33,6 +33,6 @@ Complete `technical/Week6_Workshop_Resit.ipynb`, including:
 
 The notebook, stress-test cases, four LLM tests and slide deck are prepared.
 All 26 code cells were run successfully in Google Colab on 30 October 2026;
-the real outputs are saved and there are no execution errors. Max must review
-the test wording and deployment judgement, add the required DataCamp proof,
-and record the presentation.
+the real outputs are saved and there are no execution errors. The required
+DataCamp completion screenshots are included in `technical/`. Max must review
+the test wording and deployment judgement and record the presentation.

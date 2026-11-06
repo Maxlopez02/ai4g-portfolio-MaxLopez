@@ -4,7 +4,7 @@
 
 Prepare and record a 5–10 minute face-to-camera presentation covering:
 
-- [ ] A three-class Teachable Machine image model with at least 30 examples per
+- [x] A three-class Teachable Machine image model with at least 30 examples per
   class, a screenshot, testing procedure and one analysed failure.
 - [ ] Two sourced computer-vision systems: purpose, beneficiaries, possible
   harms and a responsible-use safeguard.
@@ -47,5 +47,5 @@ course content. A course-level object-recognition version was therefore
 recreated from the official brief. It has now been run on 10 personal photos:
 all 7 code cells executed successfully with saved outputs and no errors. The
 result was 90% exact-count accuracy and 0.6 mean absolute count error. Max must
-finish the Teachable Machine evidence, add DataCamp proof, and record the
-conceptual video.
+add the remaining DataCamp proof and record the conceptual video. The completed
+Teachable Machine evidence and screenshot are in `conceptual/`.
