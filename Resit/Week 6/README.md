@@ -4,14 +4,14 @@
 
 Prepare and record a 5–10 minute face-to-camera presentation covering:
 
-- [ ] Results from the **Poke an LLM** activity and an LLM-powered product.
-- [ ] How an LLM is trained and the roles of tokens, embeddings, attention and
+- [x] Results from the **Poke an LLM** activity and an LLM-powered product.
+- [x] How an LLM is trained and the roles of tokens, embeddings, attention and
   next-token prediction.
-- [ ] Why transformers work, including queries, keys and values with an example.
-- [ ] One LLM failure type, its cause, consequences and safeguards.
-- [ ] A before-and-after prompting example and comparison of the outputs.
-- [ ] RAG, AI agents and multimodality, with one example of each.
-- [ ] Which development has the greatest AI-for-good potential and which is
+- [x] Why transformers work, including queries, keys and values with an example.
+- [x] One LLM failure type, its cause, consequences and safeguards.
+- [x] A before-and-after prompting example and comparison of the outputs.
+- [x] RAG, AI agents and multimodality, with one example of each.
+- [x] Which development has the greatest AI-for-good potential and which is
   most concerning, with justification.
 
 ## Technical — Language-model foundations
