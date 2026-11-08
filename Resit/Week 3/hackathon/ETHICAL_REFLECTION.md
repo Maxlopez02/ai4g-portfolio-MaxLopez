@@ -1,7 +1,12 @@
 # Ethical reflection
 
-The biggest risk is not a dramatic AI failure; it is a calm, plausible but wrong instruction shown to someone who has less language ability or system knowledge to challenge it. If MigrationHelp invents a deadline, misunderstands a permit type, or translates an obligation badly, a newcomer could lose time or money, delay healthcare, expose personal data, or harm a residence process. The unequal impact is central: the people the tool is meant to help may be least able to verify it.
-
-The prototype therefore limits itself to routine first-step navigation. It supplies Gemini with a small, dated pack of official Government.nl and IND facts instead of open-web results; demands structured output and known source IDs; rejects malformed or uncited answers; exposes the source links and review date; refers case-specific residence, asylum, medical and emergency questions to humans; and blocks likely BSN and document-number input. The app itself does not write conversations to disk or keep chat history, although Google still processes each API request under its own service terms. The interface also states that translation can be imperfect. These measures reduce risk, but do not prove that an answer is correct or equally understandable in every language.
-
-The tool could still harm people with low digital literacy, screen-reader users not yet included in testing, speakers of unsupported languages, undocumented migrants or asylum seekers whose needs fall outside the source pack. It could also create false confidence because a polished interface looks official. The design avoids Dutch-government logos and repeatedly labels the service as independent general information. Before real use, the team would need review by an immigration-information professional, usability sessions with newcomers in each supported language, accessibility testing, a privacy impact assessment, a scheduled source-update process, and a reliable hand-off to interpreters and local support organisations.
+The main risk is that MigrationHelp could give a confident but incorrect answer
+to someone who may already find Dutch administration difficult. Wrong advice
+about registration, insurance, or residence permits could cost the user time or
+money. To reduce this risk, the app only uses a small set of official sources,
+checks that Gemini cites those sources, blocks likely identity numbers, and
+refers urgent or case-specific questions to a person or official organisation.
+The app also makes clear that it gives general information, not legal or medical
+advice. These safeguards do not guarantee that every answer or translation is
+correct. Before real use, the tool would need testing with newcomers, language
+and accessibility checks, professional review, and regular source updates.
