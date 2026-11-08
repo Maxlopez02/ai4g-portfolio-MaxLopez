@@ -6,14 +6,14 @@ Brightspace gives a special kickoff retake instead of a video: complete the
 Human Bingo card according to the instructions on the card and submit it through
 the **Attendance retake – Kickoff** Brightspace link.
 
-- [ ] Talk to classmates and ask an open-ended follow-up question for a
+- [x] Talk to classmates and ask an open-ended follow-up question for a
   specific detail.
-- [ ] Complete at least 15 squares, including one full line of five squares
+- [x] Complete at least 15 squares, including one full line of five squares
   across, down or diagonally.
-- [ ] Write the classmate's name and the detail they shared in every completed
+- [x] Write the classmate's name and the detail they shared in every completed
   square.
-- [ ] Use each classmate for only one square.
-- [ ] Add Max's name and clearly mark all completed squares.
+- [x] Use each classmate for only one square.
+- [x] Add Max's name and clearly mark all completed squares.
 - [x] Submit the completed card directly through Brightspace.
 
 The completed card is not stored in this public repository because it may
