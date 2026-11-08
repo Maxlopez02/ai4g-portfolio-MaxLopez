@@ -12,8 +12,9 @@
    1 screenshots are included in `Week 6/technical/`.
 4. The Week 7 Teachable Machine evidence is complete: three classes, at least
    30 images per class, a screenshot, a test result and one real failure.
-5. Add Week 7 DataCamp proof: Image Processing in Python chapters 1–2 and Deep
-   Learning for Images with PyTorch chapters 2–3.
+5. Week 7 DataCamp proof is complete: the authenticated course screenshots show
+   Image Processing in Python chapters 1–2 and Deep Learning for Images with
+   PyTorch chapters 2–3 at 100%.
 
 ## 2. Videos
 

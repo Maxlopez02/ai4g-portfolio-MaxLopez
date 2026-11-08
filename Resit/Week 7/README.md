@@ -41,9 +41,9 @@ real run.
 
 ## DataCamp
 
-- [ ] Image Processing in Python, chapters 1 and 2.
-- [ ] Deep Learning for Images with PyTorch, chapter 2 Object Recognition.
-- [ ] Deep Learning for Images with PyTorch, chapter 3 Image Segmentation.
+- [x] Image Processing in Python, chapters 1 and 2.
+- [x] Deep Learning for Images with PyTorch, chapter 2 Object Recognition.
+- [x] Deep Learning for Images with PyTorch, chapter 3 Image Segmentation.
 
 ## Completion status
 
@@ -52,6 +52,7 @@ slides name three starter notebooks, but the files are not published in the
 course content. A course-level object-recognition version was therefore
 recreated from the official brief. It has now been run on 10 personal photos:
 all 7 code cells executed successfully with saved outputs and no errors. The
-result was 90% exact-count accuracy and 0.6 mean absolute count error. Max must
-add the remaining DataCamp proof and record the conceptual video. The completed
-Teachable Machine evidence and screenshot are in `conceptual/`.
+result was 90% exact-count accuracy and 0.6 mean absolute count error. The
+required DataCamp proof is included in `technical/`. Max must record the
+conceptual video. The completed Teachable Machine evidence and screenshot are
+in `conceptual/`.
